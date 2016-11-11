@@ -1,0 +1,8 @@
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixPlugins\bin\Debug\BixPlugins.dll
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixPlugins\bin\Debug\BixPlugins.pdb
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixPlugins\obj\Debug\BixPlugins.csprojResolveAssemblyReference.cache
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixPlugins\obj\Debug\BixPlugins.dll
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixPlugins\obj\Debug\BixPlugins.pdb
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixPlugins\bin\Debug\LifxNet.dll
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixPlugins\bin\Debug\LifxNet.pdb
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixPlugins\bin\Debug\LifxNet.pri
