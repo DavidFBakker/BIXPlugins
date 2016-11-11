@@ -1,0 +1,45 @@
+INFO: 11/11/2016 7:11:03 AM Listening..
+BULB: 11/11/2016 7:11:03 AM Adding bulb Office Light 1
+BULB: 11/11/2016 7:11:03 AM Adding bulb Kitchen Pendant 2
+BULB: 11/11/2016 7:11:03 AM Adding bulb 
+BULB: 11/11/2016 7:11:03 AM Adding bulb Kitchen Pendant 3
+INFO: 11/11/2016 7:11:05 AM Query String Light:value
+INFO: 11/11/2016 7:11:05 AM Query String Power:value
+INFO: 11/11/2016 7:11:05 AM Query String Dim:value
+INFO: 11/11/2016 7:11:05 AM Query String Color:value
+INFO: 11/11/2016 7:11:05 AM Powered Office Light 1 from on to on
+Dim Office Light 1 from 19660 to 52428
+Set color for bulb Office Light 1 to color green
+
+INFO: 11/11/2016 7:11:07 AM Query String Light:value
+INFO: 11/11/2016 7:11:07 AM Query String Power:value
+INFO: 11/11/2016 7:11:07 AM Query String Dim:value
+INFO: 11/11/2016 7:11:07 AM Query String Color:value
+INFO: 11/11/2016 7:11:07 AM Powered Office Light 1 from on to on
+Dim Office Light 1 from 52428 to 19660
+Set color for bulb Office Light 1 to color 2700
+
+INFO: 11/11/2016 7:11:09 AM Query String Light:value
+INFO: 11/11/2016 7:11:09 AM Query String Power:value
+INFO: 11/11/2016 7:11:09 AM Query String Dim:value
+INFO: 11/11/2016 7:11:09 AM Query String Color:value
+INFO: 11/11/2016 7:11:09 AM Powered Office Light 1 from on to on
+Dim Office Light 1 from 19660 to 19660
+Set color for bulb Office Light 1 to color 2700
+
+INFO: 11/11/2016 7:11:11 AM Query String Light:value
+INFO: 11/11/2016 7:11:11 AM Query String Power:value
+INFO: 11/11/2016 7:11:11 AM Query String Dim:value
+INFO: 11/11/2016 7:11:11 AM Query String Color:value
+INFO: 11/11/2016 7:11:11 AM Powered Office Light 1 from on to on
+Dim Office Light 1 from 19660 to 19660
+Set color for bulb Office Light 1 to color 2700
+
+INFO: 11/11/2016 7:11:20 AM Query String Light:value
+INFO: 11/11/2016 7:11:20 AM Query String Power:value
+INFO: 11/11/2016 7:11:20 AM Query String Dim:value
+INFO: 11/11/2016 7:11:20 AM Query String Color:value
+INFO: 11/11/2016 7:11:20 AM Powered Office Light 1 from on to on
+Dim Office Light 1 from 19660 to 19660
+Set color for bulb Office Light 1 to color 2700
+

@@ -1,0 +1,3 @@
+INFO: 11/10/2016 10:46:32 AM Listening..
+INFO: 11/10/2016 10:46:53 AM Query String setlight
+INFO: 11/10/2016 10:46:53 AM Query String Power

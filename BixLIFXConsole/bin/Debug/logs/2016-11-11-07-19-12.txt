@@ -1,0 +1,26 @@
+INFO: 11/11/2016 7:19:12 AM Listening..
+BULB: 11/11/2016 7:19:12 AM Adding bulb Office Light 1
+BULB: 11/11/2016 7:19:12 AM Adding bulb Kitchen Pendant 3
+BULB: 11/11/2016 7:19:12 AM Adding bulb Kitchen Pendant 2
+BULB: 11/11/2016 7:19:12 AM Adding bulb 
+INFO: 11/11/2016 7:19:13 AM Query String Light:value
+INFO: 11/11/2016 7:19:13 AM Query String Power:value
+INFO: 11/11/2016 7:19:13 AM Query String Dim:value
+INFO: 11/11/2016 7:19:13 AM Query String Color:value
+INFO: 11/11/2016 7:19:16 AM Powered Office Light 1 from on to on
+Set color for bulb Office Light 1 to color green hue: 21845 saturation: 65535 brightness: 52428 kelvin: 0
+
+INFO: 11/11/2016 7:19:26 AM Query String Light:value
+INFO: 11/11/2016 7:19:26 AM Query String Power:value
+INFO: 11/11/2016 7:19:26 AM Query String Dim:value
+INFO: 11/11/2016 7:19:26 AM Query String Color:value
+INFO: 11/11/2016 7:19:29 AM Powered Office Light 1 from on to on
+Set color for bulb Office Light 1 to color 2700 hue: 255 saturation: 255 brightness: 19660 kelvin: 2700
+
+INFO: 11/11/2016 7:19:33 AM Query String Light:value
+INFO: 11/11/2016 7:19:33 AM Query String Power:value
+INFO: 11/11/2016 7:19:33 AM Query String Dim:value
+INFO: 11/11/2016 7:19:33 AM Query String Color:value
+INFO: 11/11/2016 7:19:33 AM Powered Office Light 1 from on to on
+Set color for bulb Office Light 1 to color green hue: 21845 saturation: 65535 brightness: 52428 kelvin: 0
+

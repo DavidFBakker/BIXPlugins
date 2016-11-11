@@ -1,0 +1,21 @@
+INFO: 11/10/2016 3:09:24 PM Listening..
+BULB: 11/10/2016 3:09:24 PM Adding bulb Kitchen White 3
+BULB: 11/10/2016 3:09:24 PM Adding bulb 
+BULB: 11/10/2016 3:09:24 PM Adding bulb Kitchen Cook 1
+BULB: 11/10/2016 3:09:24 PM Adding bulb Kitchen White 1
+BULB: 11/10/2016 3:09:24 PM Adding bulb Kitchen Pendant 2
+BULB: 11/10/2016 3:09:24 PM Adding bulb Kitchen Cook 4
+BULB: 11/10/2016 3:09:24 PM Adding bulb Kitchen Cook 2
+BULB: 11/10/2016 3:09:24 PM Adding bulb Kitchen Cook 3
+BULB: 11/10/2016 3:09:24 PM Adding bulb Kitchen White 2
+BULB: 11/10/2016 3:09:24 PM Adding bulb Kitchen Pendant 3
+BULB: 11/10/2016 3:09:24 PM Adding bulb Office Light 1
+INFO: 11/10/2016 3:09:27 PM Query String Light:value
+INFO: 11/10/2016 3:09:27 PM Query String Color:value
+INFO: 11/10/2016 3:09:27 PM Set color for bulb Office Light 1 to color purple
+INFO: 11/10/2016 3:09:30 PM Query String Light:value
+INFO: 11/10/2016 3:09:30 PM Query String Color:value
+INFO: 11/10/2016 3:09:30 PM Set color for bulb Office Light 1 to color purple
+INFO: 11/10/2016 3:09:37 PM Query String Light:value
+INFO: 11/10/2016 3:09:37 PM Query String Dim:value
+INFO: 11/10/2016 3:09:37 PM Dim Office Light 1 from 39321 to 13107

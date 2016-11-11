@@ -1,0 +1,44 @@
+INFO: 11/10/2016 3:29:57 PM Listening..
+BULB: 11/10/2016 3:29:57 PM Adding bulb Office Light 1
+BULB: 11/10/2016 3:29:57 PM Adding bulb Kitchen Cook 2
+BULB: 11/10/2016 3:29:57 PM Adding bulb Kitchen Pendant 2
+BULB: 11/10/2016 3:29:57 PM Adding bulb Kitchen White 1
+BULB: 11/10/2016 3:29:57 PM Adding bulb Kitchen Pendant 3
+BULB: 11/10/2016 3:29:57 PM Adding bulb Kitchen White 3
+BULB: 11/10/2016 3:29:57 PM Adding bulb Kitchen Cook 4
+BULB: 11/10/2016 3:29:57 PM Adding bulb Kitchen Cook 3
+BULB: 11/10/2016 3:29:57 PM Adding bulb Kitchen Cook 1
+BULB: 11/10/2016 3:29:57 PM Adding bulb Kitchen White 2
+BULB: 11/10/2016 3:29:57 PM Adding bulb 
+INFO: 11/10/2016 3:30:33 PM Query String Light:value
+INFO: 11/10/2016 3:30:33 PM Query String Power:value
+INFO: 11/10/2016 3:30:33 PM Query String Dim:value
+INFO: 11/10/2016 3:30:33 PM Query String Color:value
+INFO: 11/10/2016 3:30:33 PM Powered Office Light 1 from on to on
+Dim Office Light 1 from 26214 to 52428
+Set color for bulb Office Light 1 to color pink
+
+INFO: 11/10/2016 3:30:42 PM Query String Light:value
+INFO: 11/10/2016 3:30:42 PM Query String Power:value
+INFO: 11/10/2016 3:30:42 PM Query String Dim:value
+INFO: 11/10/2016 3:30:42 PM Query String Color:value
+INFO: 11/10/2016 3:30:42 PM Powered Office Light 1 from on to on
+Dim Office Light 1 from 52428 to 52428
+Set color for bulb Office Light 1 to color pink
+
+INFO: 11/10/2016 3:30:43 PM Query String Light:value
+INFO: 11/10/2016 3:30:43 PM Query String Power:value
+INFO: 11/10/2016 3:30:43 PM Query String Dim:value
+INFO: 11/10/2016 3:30:43 PM Query String Color:value
+INFO: 11/10/2016 3:30:43 PM Powered Office Light 1 from on to on
+Dim Office Light 1 from 52428 to 52428
+Set color for bulb Office Light 1 to color pink
+
+INFO: 11/10/2016 3:30:59 PM Query String Light:value
+INFO: 11/10/2016 3:30:59 PM Query String Power:value
+INFO: 11/10/2016 3:30:59 PM Query String Dim:value
+INFO: 11/10/2016 3:30:59 PM Query String Color:value
+INFO: 11/10/2016 3:30:59 PM Powered Office Light 1 from on to on
+Dim Office Light 1 from 52428 to 52428
+Set color for bulb Office Light 1 to color hotpink
+

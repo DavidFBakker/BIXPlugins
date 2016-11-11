@@ -1,0 +1,22 @@
+INFO: 11/10/2016 1:23:17 PM Listening..
+BULB: 11/10/2016 1:23:18 PM Adding bulb Office Light 1
+BULB: 11/10/2016 1:23:18 PM Adding bulb Kitchen Pendant 3
+BULB: 11/10/2016 1:23:18 PM Adding bulb Kitchen Cook 3
+BULB: 11/10/2016 1:23:18 PM Adding bulb Kitchen White 3
+BULB: 11/10/2016 1:23:18 PM Adding bulb Kitchen Cook 2
+BULB: 11/10/2016 1:23:18 PM Adding bulb 
+BULB: 11/10/2016 1:23:18 PM Adding bulb Kitchen Cook 1
+BULB: 11/10/2016 1:23:18 PM Adding bulb Kitchen Cook 4
+BULB: 11/10/2016 1:23:18 PM Adding bulb Kitchen White 2
+BULB: 11/10/2016 1:23:18 PM Adding bulb Kitchen Pendant 2
+BULB: 11/10/2016 1:23:18 PM Adding bulb Kitchen White 1
+INFO: 11/10/2016 1:23:19 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:23:19 PM Query String Power:toggle
+INFO: 11/10/2016 1:23:20 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:23:20 PM Query String Power:toggle
+INFO: 11/10/2016 1:23:22 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:23:22 PM Query String Power:toggle
+INFO: 11/10/2016 1:23:24 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:23:24 PM Query String Power:toggle
+INFO: 11/10/2016 1:23:38 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:23:38 PM Query String Power:toggle

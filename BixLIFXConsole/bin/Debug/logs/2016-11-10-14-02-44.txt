@@ -1,0 +1,21 @@
+INFO: 11/10/2016 2:02:44 PM Listening..
+BULB: 11/10/2016 2:02:44 PM Adding bulb Office Light 1
+BULB: 11/10/2016 2:02:44 PM Adding bulb 
+BULB: 11/10/2016 2:02:44 PM Adding bulb Kitchen Cook 4
+BULB: 11/10/2016 2:02:44 PM Adding bulb Kitchen Cook 1
+BULB: 11/10/2016 2:02:44 PM Adding bulb Kitchen Cook 2
+BULB: 11/10/2016 2:02:44 PM Adding bulb Kitchen Pendant 3
+BULB: 11/10/2016 2:02:44 PM Adding bulb Kitchen Cook 3
+BULB: 11/10/2016 2:02:44 PM Adding bulb Kitchen White 2
+BULB: 11/10/2016 2:02:44 PM Adding bulb Kitchen White 3
+BULB: 11/10/2016 2:02:44 PM Adding bulb Kitchen Pendant 2
+BULB: 11/10/2016 2:02:44 PM Adding bulb Kitchen White 1
+INFO: 11/10/2016 2:02:49 PM Query String Light:Office Light 1
+INFO: 11/10/2016 2:02:49 PM Query String Dim:40
+INFO: 11/10/2016 2:02:53 PM Dim Office Light 1 from 22240 to 26214
+INFO: 11/10/2016 2:03:00 PM Query String Light:Office Light 1
+INFO: 11/10/2016 2:03:00 PM Query String Dim:100
+INFO: 11/10/2016 2:03:03 PM Dim Office Light 1 from 22240 to 65535
+INFO: 11/10/2016 2:03:23 PM Query String Light:Office Light 1
+INFO: 11/10/2016 2:03:23 PM Query String Dim:100
+INFO: 11/10/2016 2:03:30 PM Dim Office Light 1 from 65535 to 65535

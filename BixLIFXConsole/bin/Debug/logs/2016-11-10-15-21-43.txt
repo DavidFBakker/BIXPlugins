@@ -1,0 +1,16 @@
+INFO: 11/10/2016 3:21:43 PM Listening..
+BULB: 11/10/2016 3:21:43 PM Adding bulb Office Light 1
+BULB: 11/10/2016 3:21:43 PM Adding bulb Kitchen Cook 4
+BULB: 11/10/2016 3:21:43 PM Adding bulb Kitchen Cook 3
+BULB: 11/10/2016 3:21:43 PM Adding bulb 
+BULB: 11/10/2016 3:21:43 PM Adding bulb Kitchen White 3
+BULB: 11/10/2016 3:21:43 PM Adding bulb Kitchen White 1
+BULB: 11/10/2016 3:21:43 PM Adding bulb Kitchen Cook 1
+BULB: 11/10/2016 3:21:43 PM Adding bulb Kitchen White 2
+BULB: 11/10/2016 3:21:43 PM Adding bulb Kitchen Pendant 3
+BULB: 11/10/2016 3:21:43 PM Adding bulb Kitchen Pendant 2
+BULB: 11/10/2016 3:21:43 PM Adding bulb Kitchen Cook 2
+INFO: 11/10/2016 3:21:45 PM Query String Light:value
+INFO: 11/10/2016 3:21:45 PM Query String Power:value
+INFO: 11/10/2016 3:21:45 PM Powered Office Light 1 from toggle to off
+

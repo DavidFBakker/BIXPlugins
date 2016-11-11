@@ -1,0 +1,52 @@
+INFO: 11/10/2016 3:15:38 PM Listening..
+BULB: 11/10/2016 3:15:38 PM Adding bulb Kitchen Cook 3
+BULB: 11/10/2016 3:15:38 PM Adding bulb Kitchen Cook 1
+BULB: 11/10/2016 3:15:38 PM Adding bulb Kitchen Pendant 3
+BULB: 11/10/2016 3:15:38 PM Adding bulb Kitchen White 3
+BULB: 11/10/2016 3:15:38 PM Adding bulb Kitchen Pendant 2
+BULB: 11/10/2016 3:15:38 PM Adding bulb Kitchen Cook 2
+BULB: 11/10/2016 3:15:38 PM Adding bulb 
+BULB: 11/10/2016 3:15:38 PM Adding bulb Kitchen White 1
+BULB: 11/10/2016 3:15:38 PM Adding bulb Kitchen Cook 4
+BULB: 11/10/2016 3:15:38 PM Adding bulb Kitchen White 2
+BULB: 11/10/2016 3:15:38 PM Adding bulb Office Light 1
+INFO: 11/10/2016 3:15:40 PM Query String Light:value
+INFO: 11/10/2016 3:15:40 PM Query String Power:value
+INFO: 11/10/2016 3:15:40 PM Query String Dim:value
+INFO: 11/10/2016 3:15:40 PM Query String Color:value
+INFO: 11/10/2016 3:16:02 PM Powered Office Light 1 to on
+Dim Office Light 1 from 52428 to 52428
+Set color for bulb Office Light 1 to color cyan
+
+INFO: 11/10/2016 3:16:24 PM Query String Light:value
+INFO: 11/10/2016 3:16:24 PM Query String Power:value
+INFO: 11/10/2016 3:16:24 PM Query String Dim:value
+INFO: 11/10/2016 3:16:24 PM Query String Color:value
+INFO: 11/10/2016 3:16:34 PM Query String Light:value
+INFO: 11/10/2016 3:16:34 PM Query String Power:value
+INFO: 11/10/2016 3:16:34 PM Query String Dim:value
+INFO: 11/10/2016 3:16:34 PM Query String Color:value
+INFO: 11/10/2016 3:16:34 PM Powered Office Light 1 to on
+Dim Office Light 1 from 52428 to 52428
+Set color for bulb Office Light 1 to color blue
+
+INFO: 11/10/2016 3:16:48 PM Query String Light:value
+INFO: 11/10/2016 3:16:48 PM Query String Power:value
+INFO: 11/10/2016 3:16:48 PM Query String Dim:value
+INFO: 11/10/2016 3:16:48 PM Query String Color:value
+INFO: 11/10/2016 3:16:48 PM Powered Office Light 1 to on
+Dim Office Light 1 from 52428 to 52428
+Set color for bulb Office Light 1 to color olivedrab
+
+INFO: 11/10/2016 3:16:55 PM Query String Light:value
+INFO: 11/10/2016 3:16:55 PM Query String Power:value
+INFO: 11/10/2016 3:16:55 PM Query String Dim:value
+INFO: 11/10/2016 3:16:55 PM Query String Color:value
+INFO: 11/10/2016 3:16:55 PM Powered Office Light 1 to on
+Dim Office Light 1 from 52428 to 13107
+Set color for bulb Office Light 1 to color olivedrab
+
+INFO: 11/10/2016 3:17:12 PM Query String Light:value
+INFO: 11/10/2016 3:17:12 PM Query String Dim:value
+INFO: 11/10/2016 3:17:12 PM Dim Office Light 1 from 13107 to 26214
+

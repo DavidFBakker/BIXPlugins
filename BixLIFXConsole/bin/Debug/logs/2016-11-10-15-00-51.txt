@@ -1,0 +1,15 @@
+INFO: 11/10/2016 3:00:51 PM Listening..
+BULB: 11/10/2016 3:00:51 PM Adding bulb Office Light 1
+BULB: 11/10/2016 3:00:51 PM Adding bulb Kitchen White 3
+BULB: 11/10/2016 3:00:51 PM Adding bulb 
+BULB: 11/10/2016 3:00:51 PM Adding bulb Kitchen Cook 4
+BULB: 11/10/2016 3:00:51 PM Adding bulb Kitchen Cook 3
+BULB: 11/10/2016 3:00:51 PM Adding bulb Kitchen Pendant 3
+BULB: 11/10/2016 3:00:51 PM Adding bulb Kitchen White 2
+BULB: 11/10/2016 3:00:51 PM Adding bulb Kitchen White 1
+BULB: 11/10/2016 3:00:51 PM Adding bulb Kitchen Pendant 2
+BULB: 11/10/2016 3:00:51 PM Adding bulb Kitchen Cook 1
+BULB: 11/10/2016 3:00:51 PM Adding bulb Kitchen Cook 2
+INFO: 11/10/2016 3:00:53 PM Query String Light:value
+INFO: 11/10/2016 3:00:53 PM Query String Color:value
+INFO: 11/10/2016 3:00:53 PM Set color for bulb Office Light 1 to color lawngreen

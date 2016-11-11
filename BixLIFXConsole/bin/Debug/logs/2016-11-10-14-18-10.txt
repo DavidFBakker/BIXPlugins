@@ -1,0 +1,23 @@
+INFO: 11/10/2016 2:18:10 PM Listening..
+BULB: 11/10/2016 2:18:10 PM Adding bulb Kitchen Cook 4
+BULB: 11/10/2016 2:18:10 PM Adding bulb Kitchen White 1
+BULB: 11/10/2016 2:18:10 PM Adding bulb Kitchen Pendant 2
+BULB: 11/10/2016 2:18:10 PM Adding bulb Kitchen Pendant 3
+BULB: 11/10/2016 2:18:10 PM Adding bulb Kitchen Cook 1
+BULB: 11/10/2016 2:18:10 PM Adding bulb Kitchen Cook 2
+BULB: 11/10/2016 2:18:10 PM Adding bulb 
+BULB: 11/10/2016 2:18:10 PM Adding bulb Kitchen White 2
+BULB: 11/10/2016 2:18:10 PM Adding bulb Kitchen White 3
+BULB: 11/10/2016 2:18:10 PM Adding bulb Kitchen Cook 3
+BULB: 11/10/2016 2:18:10 PM Adding bulb Office Light 1
+INFO: 11/10/2016 2:18:11 PM Query String Light:Office Light 1
+INFO: 11/10/2016 2:18:11 PM Query String Dim:80
+INFO: 11/10/2016 2:18:11 PM Dim Office Light 1 from System.Threading.Tasks.Task`1[System.UInt16] to 52428
+INFO: 11/10/2016 2:18:13 PM Query String Light:Office Light 1
+INFO: 11/10/2016 2:18:13 PM Query String Dim:80
+INFO: 11/10/2016 2:18:13 PM Dim Office Light 1 from System.Threading.Tasks.Task`1[System.UInt16] to 52428
+INFO: 11/10/2016 2:18:13 PM Query String Light:Office Light 1
+INFO: 11/10/2016 2:18:13 PM Query String Dim:80
+INFO: 11/10/2016 2:18:13 PM Dim Office Light 1 from System.Threading.Tasks.Task`1[System.UInt16] to 52428
+INFO: 11/10/2016 2:18:17 PM Query String Light:Office Light 1
+INFO: 11/10/2016 2:18:17 PM Query String Dim:80

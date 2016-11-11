@@ -1,0 +1,30 @@
+INFO: 11/10/2016 1:24:09 PM Listening..
+BULB: 11/10/2016 1:24:09 PM Adding bulb Office Light 1
+BULB: 11/10/2016 1:24:09 PM Adding bulb Kitchen Cook 2
+BULB: 11/10/2016 1:24:09 PM Adding bulb Kitchen White 1
+BULB: 11/10/2016 1:24:09 PM Adding bulb Kitchen Cook 1
+BULB: 11/10/2016 1:24:09 PM Adding bulb Kitchen Pendant 3
+BULB: 11/10/2016 1:24:09 PM Adding bulb Kitchen White 3
+BULB: 11/10/2016 1:24:09 PM Adding bulb Kitchen White 2
+BULB: 11/10/2016 1:24:09 PM Adding bulb 
+BULB: 11/10/2016 1:24:09 PM Adding bulb Kitchen Cook 3
+BULB: 11/10/2016 1:24:09 PM Adding bulb Kitchen Pendant 2
+BULB: 11/10/2016 1:24:09 PM Adding bulb Kitchen Cook 4
+INFO: 11/10/2016 1:24:11 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:24:11 PM Query String Power:toggle
+INFO: 11/10/2016 1:24:11 PM Powered Office Light 1 to on
+INFO: 11/10/2016 1:24:14 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:24:14 PM Query String Power:toggle
+INFO: 11/10/2016 1:24:14 PM Powered Office Light 1 to off
+INFO: 11/10/2016 1:24:15 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:24:15 PM Query String Power:toggle
+INFO: 11/10/2016 1:24:15 PM Powered Office Light 1 to off
+INFO: 11/10/2016 1:24:18 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:24:18 PM Query String Power:toggle
+INFO: 11/10/2016 1:24:18 PM Powered Office Light 1 to off
+INFO: 11/10/2016 1:24:21 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:24:21 PM Query String Power:toggle
+INFO: 11/10/2016 1:24:21 PM Powered Office Light 1 to on
+INFO: 11/10/2016 1:24:23 PM Query String Light:Office Light 1
+INFO: 11/10/2016 1:24:23 PM Query String Power:toggle
+INFO: 11/10/2016 1:24:23 PM Powered Office Light 1 to on

@@ -1,0 +1,13 @@
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\BixLIFXConsole.exe.config
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\BixLIFXConsole.exe
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\BixLIFXConsole.pdb
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\BixPlugins.dll
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\LifxNet.dll
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\BixPlugins.pdb
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\LifxNet.pdb
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\LifxNet.pri
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\obj\Debug\BixLIFXConsole.csprojResolveAssemblyReference.cache
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\obj\Debug\BixLIFXConsole.exe
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\obj\Debug\BixLIFXConsole.pdb
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\BixPlugins.BixLIFX.dll
+C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFXConsole\bin\Debug\BixPlugins.BixLIFX.pdb
