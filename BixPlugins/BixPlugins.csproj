@@ -49,6 +49,8 @@
     <Compile Include="BIXColors.cs" />
     <Compile Include="BixListens.cs" />
     <Compile Include="Delegates.cs" />
+    <Compile Include="HttpRequestHandler.cs" />
+    <Compile Include="HttpServer.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

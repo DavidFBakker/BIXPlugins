@@ -1,0 +1,13 @@
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\LoadTester.exe.config
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\LoadTester.exe
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\LoadTester.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\BixPlugins.BixLIFX.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\BixPlugins.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\LifxNet.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\BixPlugins.BixLIFX.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\BixPlugins.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\LifxNet.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\LifxNet.pri
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\obj\Debug\LoadTester.csprojResolveAssemblyReference.cache
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\obj\Debug\LoadTester.exe
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\obj\Debug\LoadTester.pdb

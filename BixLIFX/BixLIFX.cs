@@ -14,10 +14,39 @@ namespace BixPlugins.BixLIFX
     public static class BixLIFX
     {
         private const int CommandSends = 2;
-        public static readonly ObservableCollection<LightBulb> Bulbs = new ObservableCollection<LightBulb>();
+
+        private static readonly object AddLock = new object();
+        private static readonly object RemoveLock = new object();
+
+
         private static LifxClient _client;
         private static int KelvinLow = 2500;
         private static int KelvinHigh = 9000;
+
+        private static readonly object Obj = new object();
+        private static readonly object LockObj = new object();
+        private static ObservableCollection<LightBulb> _bulbs;
+
+        public static ObservableCollection<LightBulb> Bulbs
+        {
+            get
+            {
+                lock (LockObj)
+                {
+                    if (_bulbs == null)
+                        _bulbs = new ObservableCollection<LightBulb>();
+
+                    return _bulbs;
+                }
+            }
+            //set
+            //{
+            //    lock (LockObj)
+            //    {
+            //        _bulbs = value;
+            //    }
+            //}
+        }
 
         public static string ColorsString
         {
@@ -36,13 +65,70 @@ namespace BixPlugins.BixLIFX
             }
         }
 
+        public static string ColorsTable
+        {
+            get
+            {
+                var colors = new StringBuilder();
+                colors.AppendLine("<table>");
+                foreach (var key in BIXColors.Colors.Keys)
+                {
+                    var bixColor = BIXColors.Colors[key];
+                    colors.AppendLine(bixColor.TableRow);// $"{bixColor.Name}:{bixColor.Hue},{bixColor.Saturation},{bixColor.Brightness}:{bixColor.Hex}");
+                }
+                colors.AppendLine("</table>");
+                return colors.ToString();
+            }
+        }
+
+        public static List<string> ColorNames => BIXColors.Colors.Keys.ToList();
+
+        private static void AddBulb(LightBulb bulb)
+        {
+            lock (AddLock)
+            {
+                try
+                {
+                    _bulbs.Add(bulb);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Adding bulb {bulb.State.Label} exception {ex.Message}");
+                }
+                
+            }
+        }
+
+
+        private static void RemoveBulb(LightBulb bulb)
+        {
+            lock (RemoveLock)
+            {
+                try
+                {
+                    _bulbs.Remove(bulb);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Removing bulb {bulb.State.Label} exception {ex.Message}");
+                }
+            }
+        }
+
+
         private static void BixListens_OnHttpEventReceived(object sender, HttpEvent e)
         {
             var responseBuilder = new StringBuilder();
 
+            if (!IsNullOrEmpty(e.QueryString["BuildBulbs"]))
+            {
+                SendResponse(e.HttpListenerResponse, BuildCreateDevice());
+                return;
+            }
+
             if (!IsNullOrEmpty(e.QueryString["ListColors"]))
             {
-                SendResponse(e.HttpListenerResponse, ColorsString);
+                SendResponse(e.HttpListenerResponse, ColorsTable);
                 return;
             }
 
@@ -101,7 +187,7 @@ namespace BixPlugins.BixLIFX
                     responseBuilder.AppendLine($"Powered {light} from {powerstate} to {power.Result}");
                 }
             }
-            bool GoodCommand = false;
+            var goodCommand = false;
             //Set Color
             ushort hue = 0;
             ushort saturation = 0;
@@ -114,9 +200,9 @@ namespace BixPlugins.BixLIFX
                 ushort dim;
                 if (ushort.TryParse(dimStr, out dim))
                 {
-                    GoodCommand = true;
+                    goodCommand = true;
                     dim = (ushort) (65535*(dim/100.0));
-                    brightness = dim;                   
+                    brightness = dim;
                 }
                 else
                 {
@@ -127,11 +213,11 @@ namespace BixPlugins.BixLIFX
             var colorStr = "";
             if (!IsNullOrEmpty(e.QueryString["Color"]))
             {
-                var IsGood = true;
+                var isGood = true;
                 colorStr = e.QueryString["Color"].ToLower();
                 if (IsNullOrEmpty(colorStr))
                 {
-                    IsGood = false;
+                    isGood = false;
                     responseBuilder.AppendLine("Color is empty");
                 }
                 else if (colorStr.StartsWith("#") && colorStr.Length == 7)
@@ -144,7 +230,7 @@ namespace BixPlugins.BixLIFX
                     if (kelvin < 2500 || kelvin > 9000)
                     {
                         responseBuilder.AppendLine($"Kelvin {kelvin} out of range (2500-9000)");
-                        IsGood = false;
+                        isGood = false;
                     }
                     else
                     {
@@ -161,18 +247,18 @@ namespace BixPlugins.BixLIFX
                 else
                 {
                     responseBuilder.AppendLine($"Cannot find color {colorStr}");
-                    IsGood = false;
+                    isGood = false;
                 }
 
 
-                if (!IsGood)
+                if (!isGood)
                 {
                     SendResponse(e.HttpListenerResponse, responseBuilder.ToString());
                     return;
                 }
-                GoodCommand = true;
+                goodCommand = true;
             }
-            if (GoodCommand)
+            if (goodCommand)
             {
                 foreach (var bulb in bulbs)
                 {
@@ -182,6 +268,116 @@ namespace BixPlugins.BixLIFX
                 }
             }
             SendResponse(e.HttpListenerResponse, responseBuilder.ToString());
+        }
+
+        private static string BuildCreateDevice()
+        {
+            var ret = new StringBuilder();
+
+            ret.AppendLine("<html>");
+            ret.AppendLine("<head>");
+            ret.AppendLine("</head>");
+            ret.AppendLine("<body>");
+
+
+            ret.AppendLine(@"public object CreateDev(string device)
+{
+    var dvRef = hs.GetDeviceRefByName(device);
+    if (dvRef > 0)
+    {
+        hs.WriteLog(""Info"", ""Devce exists"" + dvRef + "" deleting"");
+        hs.DeleteDevice(dvRef);
+        hs.SaveEventsDevices();
+    }
+
+    Scheduler.Classes.DeviceClass deviceClass = hs.NewDeviceEx(device);
+    dvRef = deviceClass.get_Ref(hs);
+    deviceClass.set_Can_Dim(hs, true);
+    deviceClass.set_Location(hs, ""LIFX"");
+    deviceClass.set_Location2(hs, device);
+    deviceClass.set_Code(hs, device);
+    deviceClass.set_Device_Type_String(hs, ""LIFX Bulb"");
+    deviceClass.MISC_Set(hs, Enums.dvMISC.SHOW_VALUES);
+
+    CreatePair(dvRef, ""Dim"");
+    CreatePair(dvRef, ""On"");
+    CreatePair(dvRef, ""Off"");
+
+   
+    var newevent = hs.NewEventEx(device + "" On"", device, ""Event stype"");
+    var capiOn = GetCAPI(dvRef, ""On"");
+
+    var newevent = hs.NewEventEx(device + "" On"", device, ""Event stype"");
+    hs.AddDeviceActionToEvent(newevent, capiOn);
+    hs.AddDeviceActionToEvent(newevent, capiOn);
+    hs.EnableEventByRef(newevent);
+
+    hs.WriteLog(""Info"", ""Created device "" + device + "" "" + dvRef);
+    hs.SaveEventsDevices();
+
+    return 0;
+}
+
+private void CreatePair(int dvRef, string command)
+{
+    HomeSeerAPI.VSVGPairs.VSPair VSPair = new HomeSeerAPI.VSVGPairs.VSPair(ePairStatusControl.Both);
+    HomeSeerAPI.VSVGPairs.VGPair VGPair = new HomeSeerAPI.VSVGPairs.VGPair();
+
+
+    switch (command.ToLower())
+    {
+        case ""on"":
+            VSPair.PairType = VSVGPairs.VSVGPairType.SingleValue;
+            VSPair.Render = Enums.CAPIControlType.Button;
+
+            VGPair.PairType = VSVGPairs.VSVGPairType.SingleValue;
+            VGPair.Set_Value = 100;
+            VGPair.Graphic = ""/images/HomeSeer/status/on.gif"";
+
+            VSPair.Value = 100;
+            VSPair.Status = ""On"";
+            VSPair.ControlUse = ePairControlUse._On;
+            break;
+        case ""off"":
+            VSPair.PairType = VSVGPairs.VSVGPairType.SingleValue;
+            VSPair.Render = Enums.CAPIControlType.Button;
+
+            VGPair.PairType = VSVGPairs.VSVGPairType.SingleValue;
+            VGPair.Set_Value = 0;
+            VGPair.Graphic = ""/images/HomeSeer/status/off.gif"";
+
+            VSPair.Value = 0;
+            VSPair.Status = ""Off"";
+            VSPair.ControlUse = ePairControlUse._Off;
+            break;
+        case ""dim"":
+           
+            VSPair.RangeStatusPrefix = ""Dim"";
+            VSPair.RangeStart = 1;
+            VSPair.RangeEnd = 100;
+            VSPair.PairType = VSVGPairs.VSVGPairType.Range;
+            VSPair.Render = Enums.CAPIControlType.ValuesRangeSlider;
+            VSPair.Status = ""Dim88"";
+            VSPair.ControlUse = ePairControlUse._Dim;
+            break;
+    }
+
+    hs.DeviceVSP_AddPair(dvRef, VSPair);
+    if (command.ToLower() != ""dim"")
+        hs.DeviceVGP_AddPair(dvRef, VGPair);
+}");
+            ret.AppendLine(@"public void CreateBulbs()
+{ ");
+
+            foreach (var bulb in Bulbs)
+            {
+                ret.AppendLine(@"    CreateDev(""" + bulb.State.Label + @""");");
+            }
+            ret.AppendLine("}");
+
+            ret.AppendLine("</body>");
+            ret.AppendLine("</html>");
+            return ret.ToString();
         }
 
         private static async Task SetColor(LightBulb bulb, ushort hue, ushort saturation, ushort brightness,
@@ -286,23 +482,28 @@ namespace BixPlugins.BixLIFX
             _client.StartDeviceDiscovery();
         }
 
-
         private static void Client_DeviceLost(object sender, LifxClient.DeviceDiscoveryEventArgs e)
         {
             var bulb = e.Device as LightBulb;
-            if (bulb == null || !Bulbs.Contains(bulb)) return;
+            lock (Obj)
+            {
+                if (bulb == null || !Bulbs.Contains(bulb)) return;
 
-            Log.Bulb($"Removing bulb {bulb.State.Label}");
-            Bulbs.Remove(bulb);
+                Log.Bulb($"Removing bulb {bulb.State.Label}");
+                RemoveBulb(bulb);
+            }
         }
 
         private static void Client_DeviceDiscovered(object sender, LifxClient.DeviceDiscoveryEventArgs e)
         {
             var bulb = e.Device as LightBulb;
-            if (bulb == null || Bulbs.Contains(bulb)) return;
+            lock (Obj)
+            {
+                if (bulb == null || Bulbs.Contains(bulb)) return;
 
-            Log.Bulb($"Adding bulb {bulb.State.Label}");
-            Bulbs.Add(bulb);
+                Log.Bulb($"Adding bulb {bulb.State.Label}");
+                AddBulb(bulb);
+            }
         }
     }
 }

@@ -1,0 +1,114 @@
+INFO: 11/14/2016 7:51:36 PM Listening..
+BULB: 11/14/2016 7:51:36 PM Adding bulb Office Light 1
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen Cook 4
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen Cook 1
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen Cook 2
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen Cook 3
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen Pendant 3
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen Pendant 1
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen White 1
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen Pendant 2
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen White 3
+BULB: 11/14/2016 7:51:36 PM Adding bulb Kitchen White 2
+INFO: 11/14/2016 7:52:06 PM Query String BuildBulbs:value
+INFO: 11/14/2016 7:52:10 PM public object CreateDev(string device)
+{
+    var dvRef = hs.GetDeviceRefByName(device);
+    if (dvRef > 0)
+    {
+        hs.WriteLog("Info", "Devce exists" + dvRef + " deleting");
+        hs.DeleteDevice(dvRef);
+        hs.SaveEventsDevices();
+    }
+
+    Scheduler.Classes.DeviceClass deviceClass = hs.NewDeviceEx(device);
+    dvRef = deviceClass.get_Ref(hs);
+    deviceClass.set_Can_Dim(hs, true);
+    deviceClass.set_Location(hs, "LIFX");
+    deviceClass.set_Location2(hs, device);
+    deviceClass.set_Code(hs, device);
+    deviceClass.set_Device_Type_String(hs, "LIFX Bulb");
+    deviceClass.MISC_Set(hs, Enums.dvMISC.SHOW_VALUES);
+
+    CreatePair(dvRef, "Dim");
+    CreatePair(dvRef, "On");
+    CreatePair(dvRef, "Off");
+
+   
+    var newevent = hs.NewEventEx(device + " On", device, "Event stype");
+    var capiOn = GetCAPI(dvRef, "On");
+
+    var newevent = hs.NewEventEx(device + " On", device, "Event stype");
+    hs.AddDeviceActionToEvent(newevent, capiOn);
+    hs.AddDeviceActionToEvent(newevent, capiOn);
+    hs.EnableEventByRef(newevent);
+
+    hs.WriteLog("Info", "Created device " + device + " " + dvRef);
+    hs.SaveEventsDevices();
+
+    return 0;
+}
+
+private void CreatePair(int dvRef, string command)
+{
+    HomeSeerAPI.VSVGPairs.VSPair VSPair = new HomeSeerAPI.VSVGPairs.VSPair(ePairStatusControl.Both);
+    HomeSeerAPI.VSVGPairs.VGPair VGPair = new HomeSeerAPI.VSVGPairs.VGPair();
+
+
+    switch (command.ToLower())
+    {
+        case "on":
+            VSPair.PairType = VSVGPairs.VSVGPairType.SingleValue;
+            VSPair.Render = Enums.CAPIControlType.Button;
+
+            VGPair.PairType = VSVGPairs.VSVGPairType.SingleValue;
+            VGPair.Set_Value = 100;
+            VGPair.Graphic = "/images/HomeSeer/status/on.gif";
+
+            VSPair.Value = 100;
+            VSPair.Status = "On";
+            VSPair.ControlUse = ePairControlUse._On;
+            break;
+        case "off":
+            VSPair.PairType = VSVGPairs.VSVGPairType.SingleValue;
+            VSPair.Render = Enums.CAPIControlType.Button;
+
+            VGPair.PairType = VSVGPairs.VSVGPairType.SingleValue;
+            VGPair.Set_Value = 0;
+            VGPair.Graphic = "/images/HomeSeer/status/off.gif";
+
+            VSPair.Value = 0;
+            VSPair.Status = "Off";
+            VSPair.ControlUse = ePairControlUse._Off;
+            break;
+        case "dim":
+           
+            VSPair.RangeStatusPrefix = "Dim";
+            VSPair.RangeStart = 1;
+            VSPair.RangeEnd = 100;
+            VSPair.PairType = VSVGPairs.VSVGPairType.Range;
+            VSPair.Render = Enums.CAPIControlType.ValuesRangeSlider;
+            VSPair.Status = "Dim88";
+            VSPair.ControlUse = ePairControlUse._Dim;
+            break;
+    }
+
+    hs.DeviceVSP_AddPair(dvRef, VSPair);
+    if (command.ToLower() != "dim")
+        hs.DeviceVGP_AddPair(dvRef, VGPair);
+}
+public void CreateBulbs()
+{ 
+    CreateDev("Office Light 1");
+    CreateDev("Kitchen Cook 4");
+    CreateDev("Kitchen Cook 1");
+    CreateDev("Kitchen Cook 2");
+    CreateDev("Kitchen Cook 3");
+    CreateDev("Kitchen Pendant 3");
+    CreateDev("Kitchen Pendant 1");
+    CreateDev("Kitchen White 1");
+    CreateDev("Kitchen Pendant 2");
+    CreateDev("Kitchen White 3");
+    CreateDev("Kitchen White 2");
+}
+

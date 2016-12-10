@@ -1,0 +1,7 @@
+C:\Users\dbakker\Source\Repos\BIXPlugins\TPLinkConsole\bin\Debug\TPLinkConsole.exe
+C:\Users\dbakker\Source\Repos\BIXPlugins\TPLinkConsole\bin\Debug\TPLinkConsole.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\TPLinkConsole\bin\Debug\TPLink.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\TPLinkConsole\bin\Debug\TPLink.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\TPLinkConsole\obj\Debug\TPLinkConsole.csprojResolveAssemblyReference.cache
+C:\Users\dbakker\Source\Repos\BIXPlugins\TPLinkConsole\obj\Debug\TPLinkConsole.exe
+C:\Users\dbakker\Source\Repos\BIXPlugins\TPLinkConsole\obj\Debug\TPLinkConsole.pdb

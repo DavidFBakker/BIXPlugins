@@ -1,0 +1,138 @@
+Device: Application Status Ref:389 Label:Reset Application Status
+Device: Chime Control Ref:36 Label:Chime
+Device: Chime Switch Ref:448 Label:Off
+Device: Chime Switch Ref:448 Label:On
+Device: Cooper Wiring Switch Binary Ref:436 Label:On
+Device: Cooper Wiring Switch Binary Ref:436 Label:Off
+Device: Cooper Wiring Switch Binary Ref:386 Label:On
+Device: Cooper Wiring Switch Binary Ref:386 Label:Off
+Device: Fan Ref:189 Label:Off
+Device: Fan Ref:189 Label:On
+Device: Fan Ref:197 Label:Off
+Device: Fan Ref:197 Label:On
+Device: Fan Ref:205 Label:Off
+Device: Fan Ref:205 Label:On
+Device: Fan Ref:213 Label:Off
+Device: Fan Ref:213 Label:On
+Device: Foyer Chandelier Ref:443 Label:On
+Device: Foyer Chandelier Ref:443 Label:Off
+Device: Foyer Plug Ref:414 Label:Off
+Device: Foyer Plug Ref:414 Label:On
+Device: Front Lights Ref:218 Label:Off
+Device: Front Lights Ref:218 Label:On
+Device: Home Security Ref:439 Label:Reset Notifications
+Device: Home Security Ref:404 Label:Reset Notifications
+Device: HVAC Mode Ref:187 Label:Heat
+Device: HVAC Mode Ref:187 Label:Cool
+Device: HVAC Mode Ref:187 Label:Heat - Cool
+Device: HVAC Mode Ref:187 Label:Off
+Device: HVAC Mode Ref:195 Label:Heat
+Device: HVAC Mode Ref:195 Label:Cool
+Device: HVAC Mode Ref:195 Label:Heat - Cool
+Device: HVAC Mode Ref:195 Label:Off
+Device: HVAC Mode Ref:203 Label:Heat
+Device: HVAC Mode Ref:203 Label:Cool
+Device: HVAC Mode Ref:203 Label:Heat - Cool
+Device: HVAC Mode Ref:203 Label:Off
+Device: HVAC Mode Ref:211 Label:Heat
+Device: HVAC Mode Ref:211 Label:Cool
+Device: HVAC Mode Ref:211 Label:Heat - Cool
+Device: HVAC Mode Ref:211 Label:Off
+Device: Kitchen Cook 1 Ref:122 Label:On
+Device: Kitchen Cook 1 Ref:122 Label:Off
+Device: Kitchen Cook 1 Ref:122 Label:Dim(value)
+Device: Kitchen Cook 2 Ref:116 Label:On
+Device: Kitchen Cook 2 Ref:116 Label:Off
+Device: Kitchen Cook 2 Ref:116 Label:Dim(value)
+Device: Kitchen Cook 3 Ref:121 Label:On
+Device: Kitchen Cook 3 Ref:121 Label:Off
+Device: Kitchen Cook 3 Ref:121 Label:Dim(value)
+Device: Kitchen Cook 4 Ref:113 Label:On
+Device: Kitchen Cook 4 Ref:113 Label:Off
+Device: Kitchen Cook 4 Ref:113 Label:Dim(value)
+Device: Kitchen Pendant 1 Ref:114 Label:On
+Device: Kitchen Pendant 1 Ref:114 Label:Off
+Device: Kitchen Pendant 1 Ref:114 Label:Dim(value)
+Device: Kitchen Pendant 2 Ref:118 Label:On
+Device: Kitchen Pendant 2 Ref:118 Label:Off
+Device: Kitchen Pendant 2 Ref:118 Label:Dim(value)
+Device: Kitchen Pendant 3 Ref:115 Label:On
+Device: Kitchen Pendant 3 Ref:115 Label:Off
+Device: Kitchen Pendant 3 Ref:115 Label:Dim(value)
+Device: Kitchen Strip 1 Ref:447 Label:Off
+Device: Kitchen Strip 1 Ref:447 Label:On
+Device: Kitchen White 1 Ref:120 Label:On
+Device: Kitchen White 1 Ref:120 Label:Off
+Device: Kitchen White 1 Ref:120 Label:Dim(value)
+Device: Kitchen White 2 Ref:119 Label:On
+Device: Kitchen White 2 Ref:119 Label:Off
+Device: Kitchen White 2 Ref:119 Label:Dim(value)
+Device: Kitchen White 3 Ref:117 Label:On
+Device: Kitchen White 3 Ref:117 Label:Off
+Device: Kitchen White 3 Ref:117 Label:Dim(value)
+Device: KitchenCamera Ref:413 Label:Off
+Device: KitchenCamera Ref:413 Label:On
+Device: KitchenScene Ref:59 Label:Off
+Device: KitchenScene Ref:59 Label:On
+Device: kW Hours 1 Ref:381 Label:Reset Accumulated Values
+Device: kW Hours 1 Ref:368 Label:Reset Accumulated Values
+Device: kW Hours 2 Ref:377 Label:Reset Accumulated Values
+Device: kW Hours 2 Ref:364 Label:Reset Accumulated Values
+Device: Left Side Lights Ref:411 Label:Off
+Device: Left Side Lights Ref:411 Label:On
+Device: Left Side Lights 2 Ref:442 Label:Off
+Device: Left Side Lights 2 Ref:442 Label:On
+Device: Leviton Switch Binary Ref:445 Label:On
+Device: Leviton Switch Binary Ref:445 Label:Off
+Device: Leviton Switch Binary Ref:406 Label:On
+Device: Leviton Switch Binary Ref:406 Label:Off
+Device: NightLights Ref:415 Label:Off
+Device: NightLights Ref:415 Label:On
+Device: NightOrCloudy Ref:407 Label:Off
+Device: NightOrCloudy Ref:407 Label:On
+Device: Office Light 1 Ref:112 Label:On
+Device: Office Light 1 Ref:112 Label:Off
+Device: Office Light 1 Ref:112 Label:Dim(value)
+Device: Office Light Switch Ref:217 Label:Off
+Device: Office Light Switch Ref:217 Label:On
+Device: Panel Control Ref:35 Label:Disarm
+Device: Panel Control Ref:35 Label:Arm Stay
+Device: Panel Control Ref:35 Label:Arm Away
+Device: Scene Controller Button 1 Ref:372 Label:Scene On
+Device: Scene Controller Button 1 Ref:372 Label:Scene Off
+Device: Scene Controller Button 2 Ref:373 Label:Scene On
+Device: Scene Controller Button 2 Ref:373 Label:Scene Off
+Device: Scene Controller Button 3 Ref:374 Label:Scene On
+Device: Scene Controller Button 3 Ref:374 Label:Scene Off
+Device: Scene Controller Button 4 Ref:375 Label:Scene On
+Device: Scene Controller Button 4 Ref:375 Label:Scene Off
+Device: Scene Controller Button 5 Ref:376 Label:Scene On
+Device: Scene Controller Button 5 Ref:376 Label:Scene Off
+Device: Target Temperature High Ref:186 Label:(value) AøF
+Device: Target Temperature High Ref:186 Label:-
+Device: Target Temperature High Ref:186 Label:+
+Device: Target Temperature High Ref:194 Label:(value) AøF
+Device: Target Temperature High Ref:194 Label:-
+Device: Target Temperature High Ref:194 Label:+
+Device: Target Temperature High Ref:202 Label:(value) AøF
+Device: Target Temperature High Ref:202 Label:-
+Device: Target Temperature High Ref:202 Label:+
+Device: Target Temperature High Ref:210 Label:(value) AøF
+Device: Target Temperature High Ref:210 Label:-
+Device: Target Temperature High Ref:210 Label:+
+Device: Target Temperature Low Ref:185 Label:(value) AøF
+Device: Target Temperature Low Ref:185 Label:-
+Device: Target Temperature Low Ref:185 Label:+
+Device: Target Temperature Low Ref:193 Label:(value) AøF
+Device: Target Temperature Low Ref:193 Label:-
+Device: Target Temperature Low Ref:193 Label:+
+Device: Target Temperature Low Ref:201 Label:(value) AøF
+Device: Target Temperature Low Ref:201 Label:-
+Device: Target Temperature Low Ref:201 Label:+
+Device: Target Temperature Low Ref:209 Label:(value) AøF
+Device: Target Temperature Low Ref:209 Label:-
+Device: Target Temperature Low Ref:209 Label:+
+Device: weatherXML Speak Devices Ref:181 Label:Add New
+Device: WhiteGate Ref:182 Label:Home
+Device: WhiteGate Ref:182 Label:Away
+

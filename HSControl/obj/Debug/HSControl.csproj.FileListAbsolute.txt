@@ -1,0 +1,7 @@
+C:\Users\dbakker\Source\Repos\BIXPlugins\HSControl\bin\Debug\HSControl.exe
+C:\Users\dbakker\Source\Repos\BIXPlugins\HSControl\bin\Debug\HSControl.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\HSControl\obj\Debug\HSControl.csprojResolveAssemblyReference.cache
+C:\Users\dbakker\Source\Repos\BIXPlugins\HSControl\obj\Debug\HSControl.exe
+C:\Users\dbakker\Source\Repos\BIXPlugins\HSControl\obj\Debug\HSControl.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\HSControl\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\HSControl\bin\Debug\Newtonsoft.Json.xml

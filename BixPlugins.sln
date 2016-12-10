@@ -11,6 +11,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BixLIFX", "BixLIFX\BixLIFX.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BixLIFXService", "BixLIFXService\BixLIFXService.csproj", "{7C932AAA-CE90-47EC-88C7-10E3A2CFF07B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadTester", "LoadTester\LoadTester.csproj", "{956027F6-9895-49DA-A88C-3C7650EDA57E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPLink", "TPLink\TPLink.csproj", "{F15831E5-F17A-4FD4-850C-06C9C6FB5D17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPLinkConsole", "TPLinkConsole\TPLinkConsole.csproj", "{644DEBCC-448E-4054-86FD-255DE801FDED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BixLifxCommand", "BixLifxCommand\BixLifxCommand.csproj", "{AD3FB596-BECD-401B-952E-245AAD511230}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSControl", "HSControl\HSControl.csproj", "{B45C8946-19C5-4667-A1F8-E3CB8FF17F30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +43,26 @@ Global
 		{7C932AAA-CE90-47EC-88C7-10E3A2CFF07B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C932AAA-CE90-47EC-88C7-10E3A2CFF07B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C932AAA-CE90-47EC-88C7-10E3A2CFF07B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{956027F6-9895-49DA-A88C-3C7650EDA57E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{956027F6-9895-49DA-A88C-3C7650EDA57E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{956027F6-9895-49DA-A88C-3C7650EDA57E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{956027F6-9895-49DA-A88C-3C7650EDA57E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F15831E5-F17A-4FD4-850C-06C9C6FB5D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F15831E5-F17A-4FD4-850C-06C9C6FB5D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F15831E5-F17A-4FD4-850C-06C9C6FB5D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F15831E5-F17A-4FD4-850C-06C9C6FB5D17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{644DEBCC-448E-4054-86FD-255DE801FDED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{644DEBCC-448E-4054-86FD-255DE801FDED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{644DEBCC-448E-4054-86FD-255DE801FDED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{644DEBCC-448E-4054-86FD-255DE801FDED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD3FB596-BECD-401B-952E-245AAD511230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD3FB596-BECD-401B-952E-245AAD511230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD3FB596-BECD-401B-952E-245AAD511230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD3FB596-BECD-401B-952E-245AAD511230}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B45C8946-19C5-4667-A1F8-E3CB8FF17F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45C8946-19C5-4667-A1F8-E3CB8FF17F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B45C8946-19C5-4667-A1F8-E3CB8FF17F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B45C8946-19C5-4667-A1F8-E3CB8FF17F30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
