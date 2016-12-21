@@ -1,5 +1,0 @@
-INFO: 11/10/2016 1:01:12 PM Listening..
-INFO: 11/10/2016 1:01:24 PM Query String Light:Office Light 1
-INFO: 11/10/2016 1:01:24 PM Query String Power:Off
-INFO: 11/10/2016 1:01:29 PM Query String Light:Office Light 1
-INFO: 11/10/2016 1:01:29 PM Query String Power:Off

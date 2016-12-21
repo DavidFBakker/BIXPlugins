@@ -5,10 +5,10 @@ using System.Threading;
 
 namespace BixPlugins
 {
-    public class HttpRequestHandler2
+    public class HttpRequestHandler
     {
         private readonly ManualResetEvent stopEvent = new ManualResetEvent(false);
-        private int requestCounter;
+     //   private int requestCounter;
 
         public event HttpEventHandler OnHttpEventReceived;
 

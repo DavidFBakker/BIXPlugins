@@ -24,3 +24,4 @@ C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXConsole\bin\Debug\BixPlugins.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXConsole\bin\Debug\LifxNet.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXConsole\bin\Debug\LifxNet.pri
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXConsole\obj\Debug\BixLIFXConsole.csprojResolveAssemblyReference.cache
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXConsole\bin\Debug\LifxNet.xml

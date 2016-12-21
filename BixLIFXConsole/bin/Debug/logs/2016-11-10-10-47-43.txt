@@ -1,3 +1,0 @@
-INFO: 11/10/2016 10:47:43 AM Listening..
-INFO: 11/10/2016 10:47:47 AM Query String setlight:Office Light 1
-INFO: 11/10/2016 10:47:47 AM Query String Power:On

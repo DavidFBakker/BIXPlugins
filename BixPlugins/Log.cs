@@ -1,41 +1,71 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace BixPlugins
 {
     public class Log
     {
         private static Log _outputSingleton;
-        private readonly string LogDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+        private readonly string _logDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
 
+        public const int MaxMessages = 100;
+        public LinkedList<string> Messages { get; set; }
         public Log()
         {
+            Messages=new LinkedList<string>();
             EnsureLogDirectoryExists();
             InstantiateStreamWriter();
         }
 
-        private static Log OutputSingleton
+        public static string GetMessages()
+        {
+            StringBuilder builder = new StringBuilder();
+            foreach (var message in OutputSingleton.Messages)
+                builder.AppendLine(message);
+
+            return builder.ToString();
+        }
+
+        private static bool WriteToConsole
         {
             get
             {
-                if (_outputSingleton == null)
+                if (!string.IsNullOrWhiteSpace(Console.Title))
                 {
-                    _outputSingleton = new Log();
+                    return true;
                 }
-                return _outputSingleton;
+                return true;
             }
         }
 
-        public StreamWriter SW { get; set; }
+        private  void AddMessage(string message)
+        {
+            lock (Messages)
+            {
+                if (Messages.Count >= MaxMessages)
+                {
+                    Messages.RemoveFirst();
+                }
+
+                OutputSingleton.Messages.AddLast(message);
+            }
+         
+        }
+
+        private static Log OutputSingleton => _outputSingleton ?? (_outputSingleton = new Log());
+
+        public StreamWriter Sw { get; set; }
         public static event MessageEventHandler OnMessageReceived;
 
         ~Log()
         {
-            if (SW != null)
+            if (Sw != null)
             {
                 try
                 {
-                    SW.Dispose();
+                    Sw.Dispose();
                 }
                 catch (ObjectDisposedException)
                 {
@@ -45,30 +75,36 @@ namespace BixPlugins
 
         private static void WriteColor(string level, string msg, ConsoleColor consoleColor = ConsoleColor.Green)
         {
-            switch (level)
+            if (level == "ERROR")
             {
-                case "ERROR":
-                    consoleColor = ConsoleColor.Red;
-                    break;
-                case "DEBUG":
-                    consoleColor = ConsoleColor.Magenta;
-                    break;
-                case "BULB":
-                    consoleColor = ConsoleColor.DarkYellow;
-                    break;
+                consoleColor = ConsoleColor.Red;
+            }
+            else if (level == "DEBUG")
+            {
+                consoleColor = ConsoleColor.Magenta;
+            }
+            else if (level == "BULB")
+            {
+                consoleColor = ConsoleColor.DarkYellow;
             }
 
-            Console.ForegroundColor = consoleColor;
-            Console.Write(level + ": ");
-            Console.ResetColor();
-            Console.WriteLine($"{DateTime.Now} {msg}");
+            if (WriteToConsole)
+            {
+                Console.ForegroundColor = consoleColor;
+                Console.Write(level + ": ");
+                Console.ResetColor();
+                Console.WriteLine($"{DateTime.Now} {msg}");
+            }
+            OutputSingleton.AddMessage($"{DateTime.Now} {msg}");
+
             OutputSingleton.OnOnMessageReceived($"{DateTime.Now} {msg}");
         }
 
         private static void Write(string type, string msg)
         {
             WriteColor(type, msg);
-            OutputSingleton.SW.WriteLine($"{type}: {DateTime.Now} {msg}");
+            OutputSingleton.AddMessage($"{type}: {DateTime.Now} {msg}");
+            OutputSingleton.Sw.WriteLine($"{type}: {DateTime.Now} {msg}");
         }
 
         public static void Info(string msg)
@@ -93,38 +129,41 @@ namespace BixPlugins
 
         public static void Write(string msg)
         {
-            Console.WriteLine(msg);
-            OutputSingleton.SW.Write(msg);
+            if (WriteToConsole)
+            {
+                Console.WriteLine(msg);
+            }
+            OutputSingleton.AddMessage(msg);
+            OutputSingleton.Sw.Write(msg);
         }
 
 
         private void InstantiateStreamWriter()
         {
-            var filePath = Path.Combine(LogDirPath, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")) + ".txt";
+            var filePath = Path.Combine(_logDirPath, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")) + ".txt";
             try
             {
-                SW = new StreamWriter(filePath);
-                SW.AutoFlush = true;
+                Sw = new StreamWriter(filePath) {AutoFlush = true};
             }
             catch (UnauthorizedAccessException ex)
             {
                 throw new ApplicationException(
-                    string.Format("Access denied. Could not instantiate StreamWriter using path: {0}.", filePath), ex);
+                    $"Access denied. Could not instantiate StreamWriter using path: {filePath}.", ex);
             }
         }
 
         private void EnsureLogDirectoryExists()
         {
-            if (!Directory.Exists(LogDirPath))
+            if (!Directory.Exists(_logDirPath))
             {
                 try
                 {
-                    Directory.CreateDirectory(LogDirPath);
+                    Directory.CreateDirectory(_logDirPath);
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     throw new ApplicationException(
-                        string.Format("Access denied. Could not create log directory using path: {0}.", LogDirPath), ex);
+                        $"Access denied. Could not create log directory using path: {_logDirPath}.", ex);
                 }
             }
         }

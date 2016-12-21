@@ -13,40 +13,40 @@ namespace BixPlugins.BixLIFX
 {
     public static class BixLIFX
     {
-        private const int CommandSends = 2;
+        private const int CommandSends = 1;
 
         private static readonly object AddLock = new object();
         private static readonly object RemoveLock = new object();
 
 
         private static LifxClient _client;
-        private static int KelvinLow = 2500;
-        private static int KelvinHigh = 9000;
+        private static readonly ushort KelvinLow = 2500;
+        private static readonly ushort KelvinHigh = 9000;
 
         private static readonly object Obj = new object();
         private static readonly object LockObj = new object();
-        private static ObservableCollection<LightBulb> _bulbs;
+        //  private static ObservableCollection<LightBulb> _bulbs;
 
-        public static ObservableCollection<LightBulb> Bulbs
-        {
-            get
-            {
-                lock (LockObj)
-                {
-                    if (_bulbs == null)
-                        _bulbs = new ObservableCollection<LightBulb>();
+        public static ObservableCollection<LightBulb> Bulbs = new ObservableCollection<LightBulb>();
+        //{
+        //    get
+        //    {
+        //        lock (LockObj)
+        //        {
+        //            if (_bulbs == null)
+        //                _bulbs = new ObservableCollection<LightBulb>();
 
-                    return _bulbs;
-                }
-            }
-            //set
-            //{
-            //    lock (LockObj)
-            //    {
-            //        _bulbs = value;
-            //    }
-            //}
-        }
+        //            return _bulbs;
+        //        }
+        //    }
+        //    //set
+        //    //{
+        //    //    lock (LockObj)
+        //    //    {
+        //    //        _bulbs = value;
+        //    //    }
+        //    //}
+        //}
 
         public static string ColorsString
         {
@@ -74,7 +74,7 @@ namespace BixPlugins.BixLIFX
                 foreach (var key in BIXColors.Colors.Keys)
                 {
                     var bixColor = BIXColors.Colors[key];
-                    colors.AppendLine(bixColor.TableRow);// $"{bixColor.Name}:{bixColor.Hue},{bixColor.Saturation},{bixColor.Brightness}:{bixColor.Hex}");
+                    colors.AppendLine(bixColor.TableRow);
                 }
                 colors.AppendLine("</table>");
                 return colors.ToString();
@@ -83,46 +83,50 @@ namespace BixPlugins.BixLIFX
 
         public static List<string> ColorNames => BIXColors.Colors.Keys.ToList();
 
-        private static void AddBulb(LightBulb bulb)
+        private static List<string> Labels
         {
-            lock (AddLock)
+            get
             {
-                try
-                {
-                    _bulbs.Add(bulb);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error($"Adding bulb {bulb.State.Label} exception {ex.Message}");
-                }
-                
+                if (Bulbs == null)
+                    return new List<string>();
+
+                return
+                    Bulbs.Where(a => !IsNullOrEmpty(a.State?.Label))
+                        .Select(a => a.State.Label)
+                        .ToList();
             }
         }
 
 
-        private static void RemoveBulb(LightBulb bulb)
-        {
-            lock (RemoveLock)
-            {
-                try
-                {
-                    _bulbs.Remove(bulb);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error($"Removing bulb {bulb.State.Label} exception {ex.Message}");
-                }
-            }
-        }
-
-
-        private static void BixListens_OnHttpEventReceived(object sender, HttpEvent e)
+        private static async void BixListens_OnHttpEventReceived(object sender, HttpEvent e)
         {
             var responseBuilder = new StringBuilder();
+
+            if (!IsNullOrEmpty(e.QueryString["UpdateState"]))
+            {
+                foreach (var bulb in Bulbs)
+                    bulb.State = await _client.GetLightStateAsync(bulb);
+
+                SendResponse(e.HttpListenerResponse, "OK");
+                return;
+            }
+
+            if (!IsNullOrEmpty(e.QueryString["Log"]))
+            {
+                SendResponse(e.HttpListenerResponse, Log.GetMessages());
+                return;
+            }
+
 
             if (!IsNullOrEmpty(e.QueryString["BuildBulbs"]))
             {
                 SendResponse(e.HttpListenerResponse, BuildCreateDevice());
+                return;
+            }
+
+            if (!IsNullOrEmpty(e.QueryString["Status"]))
+            {
+                SendResponse(e.HttpListenerResponse, BuildStatus());
                 return;
             }
 
@@ -153,7 +157,10 @@ namespace BixPlugins.BixLIFX
             var bulbs = new List<LightBulb>();
             if (light == "all")
             {
-                bulbs.AddRange(Bulbs);
+                lock (Bulbs)
+                {
+                    bulbs.AddRange(Bulbs);
+                }
             }
             else
             {
@@ -181,10 +188,11 @@ namespace BixPlugins.BixLIFX
                 var powerstate = e.QueryString["Power"].ToLower();
                 foreach (var bulb in bulbs)
                 {
-                    var power = SetPower(bulb, powerstate);
-
-
-                    responseBuilder.AppendLine($"Powered {light} from {powerstate} to {power.Result}");
+                    lock (new object())
+                    {
+                        var power = SetPower(bulb, powerstate);
+                        responseBuilder.AppendLine($"Powered {light} from {powerstate} to {power.Result}");
+                    }
                 }
             }
             var goodCommand = false;
@@ -262,12 +270,169 @@ namespace BixPlugins.BixLIFX
             {
                 foreach (var bulb in bulbs)
                 {
-                    var t = SetColor(bulb, hue, saturation, brightness, kelvin);
-                    responseBuilder.AppendLine(
-                        $"Set color for bulb {bulb.State.Label} to color {colorStr} hue: {hue} saturation: {saturation} brightness: {brightness} kelvin: {kelvin}");
+                    lock (new object())
+                    {
+                        var t = SetColor(bulb, hue, saturation, brightness, kelvin);
+                        responseBuilder.AppendLine(
+                            $"Set color for bulb {bulb.State.Label} to color {colorStr} hue: {hue} saturation: {saturation} brightness: {brightness} kelvin: {kelvin}");
+                    }
                 }
             }
             SendResponse(e.HttpListenerResponse, responseBuilder.ToString());
+        }
+
+        private static string FontSize(int size)
+        {
+            return $"style=\"font-family:arial;font-size:{size}px; \"";
+        }
+
+        private static string BuildStatus()
+        {
+            var ret = new StringBuilder();
+
+            ret.AppendLine("<html>");
+            ret.AppendLine("<head>");
+            ret.AppendLine("</head>");
+            ret.AppendLine("<body>");
+
+            ret.AppendLine("<table border=\"1\">");
+            var bulbs = Bulbs.Where(a => !IsNullOrEmpty(a.State?.Label)).OrderBy(a => a.State.Label).ToList();
+
+            ret.AppendLine(
+                $"<tr {FontSize(32)}\"><td>Label</td><td>IsOn</td><td>Hue</td><td>Saturation</td><td>Brightness</td><td>Kelvin</td><td>Color</td></tr>");
+
+            foreach (var bulb in bulbs)
+            {
+                var h = (float) (bulb.State.Hue/65535.0);
+                var s = (float) (bulb.State.Saturation/65535.0);
+                var b = (float) (bulb.State.Brightness/65535.0);
+
+
+                var color = HSBtoHEX(h, s, 1f);
+
+                var sb = new StringBuilder();
+
+                sb.AppendLine($"<tr {FontSize(20)}>");
+                sb.AppendLine($"<td>{bulb.State.Label}</td>");
+                sb.AppendLine($"<td>{bulb.State.IsOn}</td>");
+                //   sb.AppendLine($"<td>{bulb.IsOn}</td>");
+                sb.AppendLine($"<td>{h:F2}</td>");
+                sb.AppendLine($"<td>{s:F2}</td>");
+                sb.AppendLine($"<td>{b:F2}</td>");
+                sb.AppendLine($"<td>{bulb.State.Kelvin}</td>");
+                sb.AppendLine($"<td bgcolor=\"{color}\" width=\"50px\"></td>");
+                sb.AppendLine("</tr>");
+                ret.AppendLine(sb.ToString());
+            }
+            ret.AppendLine("</table>");
+
+            ret.AppendLine("</body>");
+            ret.AppendLine("</html>");
+            return ret.ToString();
+        }
+
+        public static string HSBtoHEX(float hue, float saturation, float brightness)
+        {
+            int r = 0, g = 0, b = 0;
+            if (saturation == 0)
+            {
+                r = g = b = (int) (brightness*255.0f + 0.5f);
+            }
+            else
+            {
+                var h = (hue - (float) Math.Floor(hue))*6.0f;
+                var f = h - (float) Math.Floor(h);
+                var p = brightness*(1.0f - saturation);
+                var q = brightness*(1.0f - saturation*f);
+                var t = brightness*(1.0f - saturation*(1.0f - f));
+                switch ((int) h)
+                {
+                    case 0:
+                        r = (int) (brightness*255.0f + 0.5f);
+                        g = (int) (t*255.0f + 0.5f);
+                        b = (int) (p*255.0f + 0.5f);
+                        break;
+                    case 1:
+                        r = (int) (q*255.0f + 0.5f);
+                        g = (int) (brightness*255.0f + 0.5f);
+                        b = (int) (p*255.0f + 0.5f);
+                        break;
+                    case 2:
+                        r = (int) (p*255.0f + 0.5f);
+                        g = (int) (brightness*255.0f + 0.5f);
+                        b = (int) (t*255.0f + 0.5f);
+                        break;
+                    case 3:
+                        r = (int) (p*255.0f + 0.5f);
+                        g = (int) (q*255.0f + 0.5f);
+                        b = (int) (brightness*255.0f + 0.5f);
+                        break;
+                    case 4:
+                        r = (int) (t*255.0f + 0.5f);
+                        g = (int) (p*255.0f + 0.5f);
+                        b = (int) (brightness*255.0f + 0.5f);
+                        break;
+                    case 5:
+                        r = (int) (brightness*255.0f + 0.5f);
+                        g = (int) (p*255.0f + 0.5f);
+                        b = (int) (q*255.0f + 0.5f);
+                        break;
+                }
+            }
+
+            var hex = $"#{Convert.ToByte(r):X2}{Convert.ToByte(g):X2}{Convert.ToByte(b):X2}";
+            return hex;
+        }
+
+        public static Color HSBtoRGB(float hue, float saturation, float brightness)
+        {
+            int r = 0, g = 0, b = 0;
+            if (saturation == 0)
+            {
+                r = g = b = (int) (brightness*255.0f + 0.5f);
+            }
+            else
+            {
+                var h = (hue - (float) Math.Floor(hue))*6.0f;
+                var f = h - (float) Math.Floor(h);
+                var p = brightness*(1.0f - saturation);
+                var q = brightness*(1.0f - saturation*f);
+                var t = brightness*(1.0f - saturation*(1.0f - f));
+                switch ((int) h)
+                {
+                    case 0:
+                        r = (int) (brightness*255.0f + 0.5f);
+                        g = (int) (t*255.0f + 0.5f);
+                        b = (int) (p*255.0f + 0.5f);
+                        break;
+                    case 1:
+                        r = (int) (q*255.0f + 0.5f);
+                        g = (int) (brightness*255.0f + 0.5f);
+                        b = (int) (p*255.0f + 0.5f);
+                        break;
+                    case 2:
+                        r = (int) (p*255.0f + 0.5f);
+                        g = (int) (brightness*255.0f + 0.5f);
+                        b = (int) (t*255.0f + 0.5f);
+                        break;
+                    case 3:
+                        r = (int) (p*255.0f + 0.5f);
+                        g = (int) (q*255.0f + 0.5f);
+                        b = (int) (brightness*255.0f + 0.5f);
+                        break;
+                    case 4:
+                        r = (int) (t*255.0f + 0.5f);
+                        g = (int) (p*255.0f + 0.5f);
+                        b = (int) (brightness*255.0f + 0.5f);
+                        break;
+                    case 5:
+                        r = (int) (brightness*255.0f + 0.5f);
+                        g = (int) (p*255.0f + 0.5f);
+                        b = (int) (q*255.0f + 0.5f);
+                        break;
+                }
+            }
+            return Color.FromArgb(Convert.ToByte(255), Convert.ToByte(r), Convert.ToByte(g), Convert.ToByte(b));
         }
 
         private static string BuildCreateDevice()
@@ -383,7 +548,7 @@ private void CreatePair(int dvRef, string command)
         private static async Task SetColor(LightBulb bulb, ushort hue, ushort saturation, ushort brightness,
             ushort kelvin)
         {
-            bulb.State = await _client.GetLightStateAsync(bulb);
+            //  bulb.State = await _client.GetLightStateAsync(bulb);
 
             var chue = bulb.State.Hue;
             var csaturation = bulb.State.Saturation;
@@ -392,15 +557,26 @@ private void CreatePair(int dvRef, string command)
 
             if (kelvin == ckelvin && hue == chue && saturation == csaturation && brightness == cbrightness)
                 return;
+            if (kelvin < KelvinLow)
+                kelvin = KelvinLow;
+
+            if (kelvin > KelvinHigh)
+                kelvin = KelvinHigh;
 
             for (var count = 0; count < CommandSends; ++count)
+            {
                 await
                     _client.SetColorAsync(bulb, hue, saturation, brightness, kelvin, new TimeSpan(0));
+                bulb.State.Hue = hue;
+                bulb.State.Saturation = saturation;
+                bulb.State.Brightness = brightness;
+                bulb.State.Kelvin = kelvin;
+            }
         }
 
         private static async Task SetColor(LightBulb bulb, ushort kelvin)
         {
-            bulb.State = await _client.GetLightStateAsync(bulb);
+            //bulb.State = await _client.GetLightStateAsync(bulb);
 
             var hue = bulb.State.Hue;
             var saturation = bulb.State.Saturation;
@@ -411,14 +587,17 @@ private void CreatePair(int dvRef, string command)
                 return;
 
             for (var count = 0; count < CommandSends; ++count)
+            {
                 await
                     _client.SetColorAsync(bulb, 0, 0, brightness, kelvin,
                         new TimeSpan(0));
+                bulb.State.Kelvin = kelvin;
+            }
         }
 
         private static async Task SetColor(LightBulb bulb, BIXColor bixColor)
         {
-            bulb.State = await _client.GetLightStateAsync(bulb);
+            //   bulb.State = await _client.GetLightStateAsync(bulb);
 
             var hue = bulb.State.Hue;
             var saturation = bulb.State.Saturation;
@@ -429,14 +608,18 @@ private void CreatePair(int dvRef, string command)
                 return;
 
             for (var count = 0; count < CommandSends; ++count)
+            {
                 await
                     _client.SetColorAsync(bulb, bixColor.LIFXHue, bixColor.LIFXSaturation, brightness, kelvin,
                         new TimeSpan(0));
+                bulb.State.Hue = bixColor.LIFXHue;
+                bulb.State.Saturation = bixColor.LIFXSaturation;
+            }
         }
 
         private static async Task<string> SetPower(LightBulb bulb, string powerState)
         {
-            bulb.State = await _client.GetLightStateAsync(bulb);
+            //  bulb.State = await _client.GetLightStateAsync(bulb);
             if (powerState == "toggle")
             {
                 powerState = bulb.State.IsOn ? "off" : "on";
@@ -450,11 +633,12 @@ private void CreatePair(int dvRef, string command)
 
         private static async Task<ushort> Dim(LightBulb bulb, ushort dim)
         {
-            bulb.State = await _client.GetLightStateAsync(bulb);
+            //   bulb.State = await _client.GetLightStateAsync(bulb);
             var hue = bulb.State.Hue;
             var saturation = bulb.State.Saturation;
             var brightness = bulb.State.Brightness;
             var kelvin = bulb.State.Kelvin;
+
             if (brightness != dim)
                 for (var count = 0; count < CommandSends; ++count)
                     await _client.SetColorAsync(bulb, hue, saturation, dim, kelvin, new TimeSpan(0));
@@ -465,44 +649,75 @@ private void CreatePair(int dvRef, string command)
         private static void SendResponse(HttpListenerResponse response, string message)
         {
             Log.Info(message);
-            var buffer = Encoding.UTF8.GetBytes(message);
-            response.ContentLength64 = buffer.LongLength;
-            response.OutputStream.Write(buffer, 0, buffer.Length);
-            response.Close();
+            try
+            {
+                var buffer = Encoding.UTF8.GetBytes(message);
+
+                response.ContentLength64 = buffer.LongLength;
+                var a = response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
+                a.Wait(200);
+                response.Close();
+            }
+            catch
+            {
+            }
         }
 
         public static async Task Init()
         {
+            Log.Info("Starting BixListens");
             var bixListens = new BixListens();
             bixListens.OnHttpEventReceived += BixListens_OnHttpEventReceived;
 
+            Log.Info("Creating LifxClient");
             _client = await LifxClient.CreateAsync();
             _client.DeviceDiscovered += Client_DeviceDiscovered;
             _client.DeviceLost += Client_DeviceLost;
+            Log.Info("Start Device Discovery");
             _client.StartDeviceDiscovery();
         }
 
         private static void Client_DeviceLost(object sender, LifxClient.DeviceDiscoveryEventArgs e)
         {
-            var bulb = e.Device as LightBulb;
-            lock (Obj)
+            lock (Bulbs)
             {
-                if (bulb == null || !Bulbs.Contains(bulb)) return;
+                var bulb = e.Device as LightBulb;
+
+                if (IsNullOrEmpty(bulb?.State?.Label) || !Labels.Contains(bulb.State.Label)) return;
+
+                if (bulb.LastSeen.AddMinutes(10) > DateTime.Now)
+                    return;
 
                 Log.Bulb($"Removing bulb {bulb.State.Label}");
-                RemoveBulb(bulb);
+                try
+                {
+                    Bulbs.Remove(bulb);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Removing bulb {bulb.State.Label} exception {ex.Message}");
+                }
             }
         }
 
         private static void Client_DeviceDiscovered(object sender, LifxClient.DeviceDiscoveryEventArgs e)
         {
-            var bulb = e.Device as LightBulb;
-            lock (Obj)
+            lock (Bulbs)
             {
-                if (bulb == null || Bulbs.Contains(bulb)) return;
+                var bulb = e.Device as LightBulb;
+
+                if (IsNullOrEmpty(bulb?.State?.Label) || Labels.Contains(bulb.State.Label)) return;
 
                 Log.Bulb($"Adding bulb {bulb.State.Label}");
-                AddBulb(bulb);
+
+                try
+                {
+                    Bulbs.Add(bulb);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Adding bulb {bulb.State.Label} exception {ex.Message}");
+                }
             }
         }
     }

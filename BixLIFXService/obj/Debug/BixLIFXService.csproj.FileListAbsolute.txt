@@ -30,3 +30,4 @@ C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\obj\Debug\BixLIFXService
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\obj\Debug\BixLIFXService.csproj.GenerateResource.Cache
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\obj\Debug\BixLIFXService.exe
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\obj\Debug\BixLIFXService.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\bin\Debug\LifxNet.xml

@@ -1,0 +1,1 @@
+C:\Users\dbakker\Source\Repos\BIXPlugins\LifxCSharp\obj\Debug\LifxCSharp.csprojResolveAssemblyReference.cache
