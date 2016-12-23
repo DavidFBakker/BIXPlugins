@@ -18,3 +18,4 @@ C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\obj\Debug\BixLIFX.csprojResolve
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\obj\Debug\BixPlugins.BixLIFX.dll
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\obj\Debug\BixPlugins.BixLIFX.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\bin\Debug\LifxNet.xml
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\bin\Debug\LifxNet.dll

@@ -20,3 +20,4 @@ C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\Telerik.Windows.Zip.xml
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\obj\Debug\BixLIFXWeb.csprojResolveAssemblyReference.cache
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\obj\Debug\BixLIFXWeb.dll
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\obj\Debug\BixLIFXWeb.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\Microsoft.AnalysisServices.AdomdClient.dll

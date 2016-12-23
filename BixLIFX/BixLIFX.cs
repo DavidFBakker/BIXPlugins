@@ -15,8 +15,10 @@ namespace BixPlugins.BixLIFX
     {
         private const int CommandSends = 1;
 
+        private  static readonly TimeSpan TaskTimeout = new TimeSpan(1000);
+
        // private static readonly object AddLock = new object();
-        //private static readonly object RemoveLock = new object();
+       //private static readonly object RemoveLock = new object();
 
 
         private static LifxClient _client;
@@ -579,7 +581,7 @@ private void CreatePair(int dvRef, string command)
             for (var count = 0; count < CommandSends; ++count)
             {
                 await
-                    _client.SetColorAsync(bulb, hue, saturation, brightness, kelvin, new TimeSpan(0));
+                    _client.SetColorAsync(bulb, hue, saturation, brightness, kelvin, new TimeSpan(0)).TimeoutAfter(TaskTimeout); 
                 bulb.State.Hue = hue;
                 bulb.State.Saturation = saturation;
                 bulb.State.Brightness = brightness;
@@ -605,7 +607,7 @@ private void CreatePair(int dvRef, string command)
             {
                 await
                     _client.SetColorAsync(bulb, 0, 0, brightness, kelvin,
-                        new TimeSpan(0));
+                        new TimeSpan(0)).TimeoutAfter(TaskTimeout);
                 bulb.State.Kelvin = kelvin;
             }
         }
@@ -626,7 +628,7 @@ private void CreatePair(int dvRef, string command)
             {
                 await
                     _client.SetColorAsync(bulb, bixColor.LIFXHue, bixColor.LIFXSaturation, brightness, kelvin,
-                        new TimeSpan(0));
+                        new TimeSpan(0)).TimeoutAfter(TaskTimeout);
                 bulb.State.Hue = bixColor.LIFXHue;
                 bulb.State.Saturation = bixColor.LIFXSaturation;
             }
@@ -642,7 +644,9 @@ private void CreatePair(int dvRef, string command)
             }
 
             for (var count = 0; count < CommandSends; ++count)
-                await _client.SetDevicePowerStateAsync(bulb, powerState == "on");
+            {
+                await _client.SetDevicePowerStateAsync(bulb, powerState == "on").TimeoutAfter(TaskTimeout);                
+            }
 
             Log.Bulb($"{eventid} SetPower {bulb.State.Label} {powerState} Done");
 
@@ -659,7 +663,7 @@ private void CreatePair(int dvRef, string command)
 
             if (brightness != dim)
                 for (var count = 0; count < CommandSends; ++count)
-                    await _client.SetColorAsync(bulb, hue, saturation, dim, kelvin, new TimeSpan(0));
+                    await _client.SetColorAsync(bulb, hue, saturation, dim, kelvin, new TimeSpan(0)).TimeoutAfter(TaskTimeout);
 
             return brightness;
         }

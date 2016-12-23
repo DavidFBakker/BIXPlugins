@@ -10,3 +10,4 @@ C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\LifxNet.pri
 C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\obj\Debug\LoadTester.csprojResolveAssemblyReference.cache
 C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\obj\Debug\LoadTester.exe
 C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\obj\Debug\LoadTester.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\LoadTester\bin\Debug\LifxNet.dll
