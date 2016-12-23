@@ -39,9 +39,10 @@ namespace BixPlugins
 
             while (callbackState.Listener.IsListening)
             {
+                Log.Info($"Listen Start WaitAny");
                 callbackState.Listener.BeginGetContext(ListenerCallback, callbackState);
                 var n = WaitHandle.WaitAny(new WaitHandle[] {callbackState.ListenForNextRequest, stopEvent});
-
+                Log.Info($"Listen got event");
                 if (n == 1)
                 {
                     // stopEvent was signalled 
@@ -56,6 +57,8 @@ namespace BixPlugins
 
         private void ListenerCallback(IAsyncResult ar)
         {
+            var eventID = Guid.NewGuid().ToString();
+            Log.Info($"{eventID} Handling event");
             var callbackState = (HttpListenerCallbackState) ar.AsyncState;
             HttpListenerContext context = null;
 
@@ -67,7 +70,7 @@ namespace BixPlugins
             }
             catch (Exception ex)
             {
-                Log.Error($"ListenerCallback error {ex.Message}");
+                Log.Error($"{eventID} ListenerCallback error {ex.Message}");
                 return;
             }
             finally
@@ -79,35 +82,18 @@ namespace BixPlugins
             var request = context.Request;
 
 
-            //if (request.HasEntityBody)
-            //{
-            //    using (var sr = new StreamReader(request.InputStream, request.ContentEncoding))
-            //    {
-            //        var requestData = sr.ReadToEnd();
-
-            //        //Stuff I do with the request happens here  
-            //    }
-            //}
-
-            //if (request.QueryString.HasKeys())
-            //    foreach (var q in request.QueryString)
-            //    {
-            //        var value = request.QueryString[q.ToString()];
-            //        if (value == null)
-            //            value = "";
-            //        Log.Info($"Query String {q}:value");
-            //    }
-
+           
             try
             {
                 using (var response = context.Response)
                 {
                     if (request.QueryString.HasKeys())
                     {
+
                         OnOnHttpEventReceived(new HttpEvent
                         {
                             QueryString = request.QueryString,
-                            HttpListenerResponse = response
+                            HttpListenerResponse = response,ID=eventID
                         });
                     }
                  
@@ -115,8 +101,9 @@ namespace BixPlugins
             }
             catch (Exception ex)
             {
-                Log.Error($"ListenerCallback error {ex.Message}");
+                Log.Error($"{eventID} ListenerCallback error {ex.Message}");
             }
+            Log.Info($"{eventID} Handled event");
         }
 
         public void ListenAsynchronously(string prefix)
@@ -126,7 +113,9 @@ namespace BixPlugins
 
         private void OnOnHttpEventReceived(HttpEvent e)
         {
+            Log.Info($"{e.ID} HttpRequestHandler OnHttpEventReceived Start");
             OnHttpEventReceived?.Invoke(null, e);
+            Log.Info($"{e.ID} HttpRequestHandler OnHttpEventReceived Ended");
         }
     }
 }

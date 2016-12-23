@@ -15,16 +15,16 @@ namespace BixPlugins.BixLIFX
     {
         private const int CommandSends = 1;
 
-        private static readonly object AddLock = new object();
-        private static readonly object RemoveLock = new object();
+       // private static readonly object AddLock = new object();
+        //private static readonly object RemoveLock = new object();
 
 
         private static LifxClient _client;
         private static readonly ushort KelvinLow = 2500;
         private static readonly ushort KelvinHigh = 9000;
 
-        private static readonly object Obj = new object();
-        private static readonly object LockObj = new object();
+        //private static readonly object Obj = new object();
+        //private static readonly object LockObj = new object();
         //  private static ObservableCollection<LightBulb> _bulbs;
 
         public static ObservableCollection<LightBulb> Bulbs = new ObservableCollection<LightBulb>();
@@ -100,6 +100,8 @@ namespace BixPlugins.BixLIFX
 
         private static async void BixListens_OnHttpEventReceived(object sender, HttpEvent e)
         {
+           
+            Log.Bulb($"{e.ID} Received new event");
             var responseBuilder = new StringBuilder();
 
             if (!IsNullOrEmpty(e.QueryString["UpdateState"]))
@@ -108,12 +110,14 @@ namespace BixPlugins.BixLIFX
                     bulb.State = await _client.GetLightStateAsync(bulb);
 
                 SendResponse(e.HttpListenerResponse, "OK");
+                Log.Bulb($"{e.ID} Proccessed event");
                 return;
             }
 
             if (!IsNullOrEmpty(e.QueryString["Log"]))
             {
                 SendResponse(e.HttpListenerResponse, Log.GetMessages());
+                Log.Bulb($"{e.ID} Proccessed event");
                 return;
             }
 
@@ -121,18 +125,21 @@ namespace BixPlugins.BixLIFX
             if (!IsNullOrEmpty(e.QueryString["BuildBulbs"]))
             {
                 SendResponse(e.HttpListenerResponse, BuildCreateDevice());
+                Log.Bulb($"{e.ID} Proccessed event");
                 return;
             }
 
             if (!IsNullOrEmpty(e.QueryString["Status"]))
             {
                 SendResponse(e.HttpListenerResponse, BuildStatus());
+                Log.Bulb($"{e.ID} Proccessed event");
                 return;
             }
 
             if (!IsNullOrEmpty(e.QueryString["ListColors"]))
             {
                 SendResponse(e.HttpListenerResponse, ColorsTable);
+                Log.Bulb($"{e.ID} Proccessed event");
                 return;
             }
 
@@ -143,6 +150,7 @@ namespace BixPlugins.BixLIFX
                     responseBuilder.AppendLine(light1);
 
                 SendResponse(e.HttpListenerResponse, responseBuilder.ToString());
+                Log.Bulb($"{e.ID} Proccessed event");
                 return;
             }
 
@@ -150,6 +158,7 @@ namespace BixPlugins.BixLIFX
             if (IsNullOrEmpty(e.QueryString["Light"]))
             {
                 SendResponse(e.HttpListenerResponse, "Need a light");
+                Log.Bulb($"{e.ID} Proccessed event");
                 return;
             }
 
@@ -190,7 +199,7 @@ namespace BixPlugins.BixLIFX
                 {
                     lock (new object())
                     {
-                        var power = SetPower(bulb, powerstate);
+                        var power = SetPower(bulb, e.ID, powerstate);
                         responseBuilder.AppendLine($"Powered {light} from {powerstate} to {power.Result}");
                     }
                 }
@@ -262,6 +271,7 @@ namespace BixPlugins.BixLIFX
                 if (!isGood)
                 {
                     SendResponse(e.HttpListenerResponse, responseBuilder.ToString());
+                    Log.Bulb($"{e.ID} Proccessed event");
                     return;
                 }
                 goodCommand = true;
@@ -272,13 +282,14 @@ namespace BixPlugins.BixLIFX
                 {
                     lock (new object())
                     {
-                        var t = SetColor(bulb, hue, saturation, brightness, kelvin);
+                        var t = SetColor(bulb,e.ID, hue, saturation, brightness, kelvin);
                         responseBuilder.AppendLine(
                             $"Set color for bulb {bulb.State.Label} to color {colorStr} hue: {hue} saturation: {saturation} brightness: {brightness} kelvin: {kelvin}");
                     }
                 }
             }
             SendResponse(e.HttpListenerResponse, responseBuilder.ToString());
+            Log.Bulb($"{e.ID} Proccessed event");
         }
 
         private static string FontSize(int size)
@@ -545,9 +556,11 @@ private void CreatePair(int dvRef, string command)
             return ret.ToString();
         }
 
-        private static async Task SetColor(LightBulb bulb, ushort hue, ushort saturation, ushort brightness,
+        private static async Task SetColor(LightBulb bulb, string eventID, ushort hue, ushort saturation, ushort brightness,
             ushort kelvin)
         {
+            Log.Bulb($"{eventID} SetColor {bulb.State.Label}");
+
             //  bulb.State = await _client.GetLightStateAsync(bulb);
 
             var chue = bulb.State.Hue;
@@ -572,6 +585,8 @@ private void CreatePair(int dvRef, string command)
                 bulb.State.Brightness = brightness;
                 bulb.State.Kelvin = kelvin;
             }
+
+            Log.Bulb($"{eventID} SetColor {bulb.State.Label} Done");
         }
 
         private static async Task SetColor(LightBulb bulb, ushort kelvin)
@@ -617,8 +632,9 @@ private void CreatePair(int dvRef, string command)
             }
         }
 
-        private static async Task<string> SetPower(LightBulb bulb, string powerState)
+        private static async Task<string> SetPower(LightBulb bulb,string eventid, string powerState)
         {
+            Log.Bulb($"{eventid} SetPower {bulb.State.Label} {powerState}");
             //  bulb.State = await _client.GetLightStateAsync(bulb);
             if (powerState == "toggle")
             {
@@ -628,7 +644,9 @@ private void CreatePair(int dvRef, string command)
             for (var count = 0; count < CommandSends; ++count)
                 await _client.SetDevicePowerStateAsync(bulb, powerState == "on");
 
-            return bulb.State.IsOn ? "on" : "off";
+            Log.Bulb($"{eventid} SetPower {bulb.State.Label} {powerState} Done");
+
+            return powerState;
         }
 
         private static async Task<ushort> Dim(LightBulb bulb, ushort dim)
@@ -648,7 +666,7 @@ private void CreatePair(int dvRef, string command)
 
         private static void SendResponse(HttpListenerResponse response, string message)
         {
-            Log.Info(message);
+            Log.Bulb($"Responded with {message}");
             try
             {
                 var buffer = Encoding.UTF8.GetBytes(message);
@@ -656,6 +674,13 @@ private void CreatePair(int dvRef, string command)
                 response.ContentLength64 = buffer.LongLength;
                 var a = response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
                 a.Wait(200);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Error on response: {ex.Message}");
+            }
+            try
+            {
                 response.Close();
             }
             catch
@@ -665,15 +690,15 @@ private void CreatePair(int dvRef, string command)
 
         public static async Task Init()
         {
-            Log.Info("Starting BixListens");
+            Log.Bulb("Starting BixListens");
             var bixListens = new BixListens();
             bixListens.OnHttpEventReceived += BixListens_OnHttpEventReceived;
 
-            Log.Info("Creating LifxClient");
+            Log.Bulb("Creating LifxClient");
             _client = await LifxClient.CreateAsync();
             _client.DeviceDiscovered += Client_DeviceDiscovered;
             _client.DeviceLost += Client_DeviceLost;
-            Log.Info("Start Device Discovery");
+            Log.Bulb("Start Device Discovery");
             _client.StartDeviceDiscovery();
         }
 

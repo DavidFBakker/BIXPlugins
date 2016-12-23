@@ -11,7 +11,6 @@ C:\Users\dbakker\Source\Workspaces\BixPlugins\BixLIFX\obj\Debug\BixPlugins.BixLI
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\bin\Debug\BixPlugins.BixLIFX.dll
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\bin\Debug\BixPlugins.BixLIFX.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\bin\Debug\BixPlugins.dll
-C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\bin\Debug\LifxNet.dll
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\bin\Debug\BixPlugins.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\bin\Debug\LifxNet.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFX\bin\Debug\LifxNet.pri

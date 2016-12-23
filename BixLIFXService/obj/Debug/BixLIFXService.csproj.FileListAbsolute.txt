@@ -20,7 +20,6 @@ C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\bin\Debug\BixLIFXService
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\bin\Debug\BixLIFXService.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\bin\Debug\BixPlugins.BixLIFX.dll
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\bin\Debug\BixPlugins.dll
-C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\bin\Debug\LifxNet.dll
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\bin\Debug\BixPlugins.BixLIFX.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\bin\Debug\BixPlugins.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXService\bin\Debug\LifxNet.pdb

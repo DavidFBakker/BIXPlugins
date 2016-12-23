@@ -42,11 +42,11 @@ namespace BixPlugins
 
         private  void AddMessage(string message)
         {
-            lock (Messages)
+            lock (OutputSingleton.Messages)
             {
                 if (Messages.Count >= MaxMessages)
                 {
-                    Messages.RemoveFirst();
+                    OutputSingleton.Messages.RemoveFirst();
                 }
 
                 OutputSingleton.Messages.AddLast(message);
