@@ -67,3 +67,12 @@ public object LightCommand(string command)
     return 0;
 }
 ```
+
+
+## TPLinkConsole
+Contorl your TP wall plugs and light switches
+
+### Example
+
+TPLinkConsole.exe <ip of device> ON
+
