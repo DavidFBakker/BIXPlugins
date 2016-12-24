@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>BIXPlugins</title>
+</head>
+<body>
+
+    <h1 id="bixplugins">BIXPlugins</h1>
+<p>Some random plugins for home automation</p>
+<h2 id="bixlifxconsole">BixLIFXConsole</h2>
+<p>this console app simply controls your LIFX bulbs. It listens on a http port to control the lights. It listens on all IP address on port 9105
+The commands it supports are</p>
+<ul>
+<li><strong>ListLights=1 -</strong> List all the discovered LIFX bulbs</li>
+<li><strong>ListColors=1 -</strong> List all the supported colors.</li>
+<li><strong>Power=On/Off/Toggle</strong> - As it says</li>
+<li><strong>Dim=20 -</strong> 1-100 to dim a light</li>
+<li><strong>Color=<Color> -</strong> Sets a color ,This can be kelvin (2500-9000), HTML hex (#RRGGBB) or a name Red/LawnGreen</li>
+<li><strong>Light=<Label nam> -</strong> The LIFX light name. this can also be ALL or if you dont use a full name it will match (StartOf) any bulb label to that value. So &quot;Office Light&quot; will work on a bulb called &quot;Office Light&quot; or all bulbs starting with &quot;Office Light&quot; in their label</li>
+<li><strong>UpdateState=1 -</strong> Force a state update (useful if the bulbs were modified outside of this program)</li>
+<li><strong>Log=1 -</strong> Show the last 100 log entries</li>
+<li><strong>Status=1 -</strong> Show the status of all the bulbs</li>
+</ul>
+<h4 id="examples">Examples:</h4>
+<p><strong><a href="http://localhost:9105/?Light=Office">http://localhost:9105/?Light=Office</a> Light 1&amp;Power=On&amp;Dim=80&amp;Color=Pink</strong> - Turn on &quot;Office Light 1&quot;, set the DIM to 80% and make the color pink
+<strong><a href="http://localhost:9105/?Light=Office">http://localhost:9105/?Light=Office</a> Light&amp;Power=Toggle</strong> - Toggle the light state for all lights starting with &quot;Office Light&quot;
+<strong><a href="http://localhost:9105/?Light=Office">http://localhost:9105/?Light=Office</a> Light&amp;Power=On&amp;Dim=80&amp;Color=2700</strong> - Turn on all &quot;Office Light&quot;s Dim to 80% and make it a white color of kelvin 2700</p>
+<p>So the cool thing is you can use any home automation software to simply trigger this. I have Amazon Echo Bridge (<a href="https://github.com/armzilla/amazon-echo-ha-bridge">https://github.com/armzilla/amazon-echo-ha-bridge</a>)
+running with some bindings for the bulbs. This way alexa can control them. I also have homeseer using it with some virtual bulbs.</p>
+<h4 id="bridge-setup-is-simple.make-a-manual-entry">Bridge setup is simple. Make a manual entry</h4>
+<ul>
+<li>Name &quot;Office Light 1&quot; - bulb label</li>
+<li>Device type TCP</li>
+</ul>
+<p>On URL
+**<a href="http://192.168.1.19:9105/?Light=Office%20Light%201&amp;Power=On**">http://192.168.1.19:9105/?Light=Office%20Light%201&amp;Power=On**</a></p>
+<p>Off URL
+**<a href="http://192.168.1.19:9105/?Light=Office%20Light%201&amp;Power=Off**">http://192.168.1.19:9105/?Light=Office%20Light%201&amp;Power=Off**</a></p>
+<p>Dim URL
+<a href="http://192.168.1.19:9105/?Light=Office%20Light%201&amp;Power=On&amp;Dim=$%7Bintensity.percent%7D">http://192.168.1.19:9105/?Light=Office%20Light%201&amp;Power=On&amp;Dim=${intensity.percent}</a></p>
+<p>Then i can have alexa power or dim the bulb</p>
+<p>Homeseer:
+create a dimable virtual device and create an event to pass the state change to a homeseer script. The event executes the script on a value changed with:</p>
+<ul>
+<li>Sub: LightParseCommand</li>
+<li>Parameters: Office Light 1</li>
+</ul>
+<p>Here is the script:
+The script (C#):</p>
+<pre><code>using System.Net;
+using HomeSeerAPI;
+using Scheduler;
+using Scheduler.Classes;
+
+private const string BaseUrl = @&quot;http://192.168.1.19:9105/?&quot;;
+
+public object LightParseCommand(string device)
+{
+    var dvRef = hs.GetDeviceRefByName(device);
+    if (dvRef &gt; 0)
+    {
+        var status = hs.CAPIGetStatus(dvRef).Status;
+        string cmdstr = &quot;&quot;;
+        if (status.StartsWith(&quot;Dim&quot;))
+        {
+            cmdstr = &quot;Power=On&amp;Dim=&quot; + status.Substring(3);
+        }
+        else if (status.Equals(&quot;On&quot;))
+        {
+            cmdstr = &quot;Power=On&quot;;
+        }
+        else if (status.Equals(&quot;Off&quot;))
+        {
+            cmdstr = &quot;Power=Off&quot;;
+        }
+        if (!string.IsNullOrEmpty(cmdstr))
+        {
+            var page = BaseUrl + &quot;Light=&quot; + device + &quot;&amp;&quot; + cmdstr;
+            hs.WriteLog(&quot;Info&quot;, &quot;Sending &quot; + page);
+            System.Net.WebClient webClient = new System.Net.WebClient();
+            string response = webClient.DownloadString(page);
+        }
+    }
+    return 0;
+}
+</code></pre>
+
+
+</body>
+</html>

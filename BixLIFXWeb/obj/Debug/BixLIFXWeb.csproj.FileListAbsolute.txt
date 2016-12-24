@@ -21,3 +21,10 @@ C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\obj\Debug\BixLIFXWeb.csprojR
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\obj\Debug\BixLIFXWeb.dll
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\obj\Debug\BixLIFXWeb.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\Microsoft.AnalysisServices.AdomdClient.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\BixPlugins.BixLIFX.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\BixPlugins.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\BixPlugins.BixLIFX.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\BixPlugins.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\LifxNet.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\LifxNet.xml
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\LifxNet.pri

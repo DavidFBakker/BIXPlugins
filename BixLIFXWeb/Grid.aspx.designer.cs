@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BixLIFXWeb
-{
-
-
-    public partial class Grid
-    {
-
+namespace BixLIFXWeb {
+    
+    
+    public partial class Grid {
+        
         /// <summary>
         /// JumbotronLayout control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace BixLIFXWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageLayout JumbotronLayout;
-
+        
         /// <summary>
         /// RadButton0 control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace BixLIFXWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadButton RadButton0;
-
+        
         /// <summary>
         /// RadAjaxPanel1 control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace BixLIFXWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
-
+        
         /// <summary>
         /// RadGrid1 control.
         /// </summary>

@@ -1,0 +1,5 @@
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWCF\bin\BixLIFXWCF.dll.config
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWCF\bin\BixLIFXWCF.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWCF\bin\BixLIFXWCF.pdb
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWCF\obj\Debug\BixLIFXWCF.dll
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWCF\obj\Debug\BixLIFXWCF.pdb

@@ -692,11 +692,14 @@ private void CreatePair(int dvRef, string command)
             }
         }
 
-        public static async Task Init()
+        public static async Task Init(bool startHTTPListener=true)
         {
-            Log.Bulb("Starting BixListens");
-            var bixListens = new BixListens();
-            bixListens.OnHttpEventReceived += BixListens_OnHttpEventReceived;
+            if (startHTTPListener)
+            {
+                Log.Bulb("Starting BixListens");
+                var bixListens = new BixListens();
+                bixListens.OnHttpEventReceived += BixListens_OnHttpEventReceived;
+            }
 
             Log.Bulb("Creating LifxClient");
             _client = await LifxClient.CreateAsync();
