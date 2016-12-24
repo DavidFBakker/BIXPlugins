@@ -1,0 +1,10 @@
+﻿{
+  "supports": {},
+  "dependencies": {
+    "Microsoft.Bcl.Build": "1.0.21",
+    "Microsoft.Net.Http": "2.2.29"
+  },
+  "frameworks": {
+    ".NETPortable,Version=v4.6,Profile=Profile32": {}
+  }
+}

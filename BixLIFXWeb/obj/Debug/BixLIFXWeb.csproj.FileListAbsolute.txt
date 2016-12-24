@@ -26,5 +26,5 @@ C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\BixPlugins.dll
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\BixPlugins.BixLIFX.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\BixPlugins.pdb
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\LifxNet.pdb
-C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\LifxNet.xml
 C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\LifxNet.pri
+C:\Users\dbakker\Source\Repos\BIXPlugins\BixLIFXWeb\bin\LifxNet.dll
