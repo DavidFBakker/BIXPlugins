@@ -54,33 +54,16 @@ using Scheduler.Classes;
 
 private const string BaseUrl = @"http://192.168.1.19:9105/?";
 
-public object LightParseCommand(string device)
+public object LightCommand(string command)
 {
-    var dvRef = hs.GetDeviceRefByName(device);
-    if (dvRef > 0)
-    {
-        var status = hs.CAPIGetStatus(dvRef).Status;
-        string cmdstr = "";
-        if (status.StartsWith("Dim"))
-        {
-            cmdstr = "Power=On&Dim=" + status.Substring(3);
-        }
-        else if (status.Equals("On"))
-        {
-            cmdstr = "Power=On";
-        }
-        else if (status.Equals("Off"))
-        {
-            cmdstr = "Power=Off";
-        }
-        if (!string.IsNullOrEmpty(cmdstr))
-        {
-            var page = BaseUrl + "Light=" + device + "&" + cmdstr;
-            hs.WriteLog("Info", "Sending " + page);
-            System.Net.WebClient webClient = new System.Net.WebClient();
-            string response = webClient.DownloadString(page);
-        }
-    }
+    var page = BaseUrl + command;
+    hs.WriteLog("Info", "Sending " + page);
+
+    System.Net.WebClient webClient = new System.Net.WebClient();
+    string response = webClient.DownloadString(page);
+    webClient.Dispose();
+
+
     return 0;
 }
 ```
