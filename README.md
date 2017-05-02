@@ -17,9 +17,9 @@ The commands it supports are
 - **UpdateState=1 -** Update the state of all the bulbs
 
 #### Examples:
-**http://localhost:9105/?Light=Office Light 1&Power=On&Dim=80&Color=Pink** - Turn on "Office Light 1", set the DIM to 80% and make the color pink
-**http://localhost:9105/?Light=Office Light&Power=Toggle** - Toggle the light state for all lights starting with "Office Light"
-**http://localhost:9105/?Light=Office Light&Power=On&Dim=80&Color=2700** - Turn on all "Office Light"s Dim to 80% and make it a white color of kelvin 2700
+**http://localhost:9105/?Light=Office Light 1&Power=On&Dim=80&Color=Pink** - Turn on "Office Light 1", set the DIM to 80% and make the color pink**
+**http://localhost:9105/?Light=Office Light&Power=Toggle** - Toggle the light state for all lights starting with "Office Light"**
+**http://localhost:9105/?Light=Office Light&Power=On&Dim=80&Color=2700** - Turn on all "Office Light"s Dim to 80% and make it a white color of kelvin 2700**
 
 
 So the cool thing is you can use any home automation software to simply trigger this. I have Amazon Echo Bridge (https://github.com/armzilla/amazon-echo-ha-bridge)
