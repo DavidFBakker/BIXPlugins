@@ -14,7 +14,8 @@ The commands it supports are
 - **UpdateState=1 -** Force a state update (useful if the bulbs were modified outside of this program)
 - **Log=1 -** Show the last 100 log entries
 - **Status=1 -** Show the status of all the bulbs
-
+- **UpdateState=1 -** Update the state of all the bulbs
+- **
 
 #### Examples:
 **http://localhost:9105/?Light=Office Light 1&Power=On&Dim=80&Color=Pink** - Turn on "Office Light 1", set the DIM to 80% and make the color pink
