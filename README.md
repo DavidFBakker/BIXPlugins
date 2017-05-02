@@ -18,7 +18,9 @@ The commands it supports are
 
 #### Examples:
 **http://localhost:9105/?Light=Office Light 1&Power=On&Dim=80&Color=Pink** - Turn on "Office Light 1", set the DIM to 80% and make the color pink**
+
 **http://localhost:9105/?Light=Office Light&Power=Toggle** - Toggle the light state for all lights starting with "Office Light"**
+
 **http://localhost:9105/?Light=Office Light&Power=On&Dim=80&Color=2700** - Turn on all "Office Light"s Dim to 80% and make it a white color of kelvin 2700**
 
 
