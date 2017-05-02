@@ -1,5 +1,5 @@
 # BIXPlugins
-Some random plugins for home automation
+Some random plugins for home automation. I mainly am working on BixLIFXConsole
 
 ## BixLIFXConsole
 this console app simply controls your LIFX bulbs. It listens on a http port to control the lights. It listens on all IP address on port 9105
