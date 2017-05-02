@@ -13,7 +13,7 @@ namespace BixLIFXConsole
         {
             BixLIFX.Init();
 
-            Console.WriteLine(BixLIFX.ColorsString);
+         //   Console.WriteLine(BixLIFX.ColorsString);
             Console.ReadLine();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -8,17 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using LifxNet;
 using static System.String;
+using Color = System.Drawing.Color;
 
 namespace BixPlugins.BixLIFX
 {
     public static class BixLIFX
     {
-        private const int CommandSends = 1;
+        private const int CommandSendsDef = 5;
 
-        private  static readonly TimeSpan TaskTimeout = new TimeSpan(1000);
+        private  static readonly int TaskTimeoutDefault = 500;
+        private static readonly int TaskTimeoutIncDefault = 500;
 
-       // private static readonly object AddLock = new object();
-       //private static readonly object RemoveLock = new object();
+        // private static readonly object AddLock = new object();
+        //private static readonly object RemoveLock = new object();
 
 
         private static LifxClient _client;
@@ -108,17 +111,19 @@ namespace BixPlugins.BixLIFX
 
             if (!IsNullOrEmpty(e.QueryString["UpdateState"]))
             {
-                foreach (var bulb in Bulbs)
-                    bulb.State = await _client.GetLightStateAsync(bulb);
-
                 SendResponse(e.HttpListenerResponse, "OK");
                 Log.Bulb($"{e.ID} Proccessed event");
+
+                foreach (var bulb in Bulbs)
+                     _client.UpdateLightStateAsync(bulb);
+
+               
                 return;
             }
 
             if (!IsNullOrEmpty(e.QueryString["Log"]))
             {
-                SendResponse(e.HttpListenerResponse, Log.GetMessages());
+                SendResponse(e.HttpListenerResponse, Log.GetMessages(),false);
                 Log.Bulb($"{e.ID} Proccessed event");
                 return;
             }
@@ -558,10 +563,18 @@ private void CreatePair(int dvRef, string command)
             return ret.ToString();
         }
 
+        private static TimeSpan GetTS(long miliseconds)
+        {
+            return new TimeSpan(miliseconds * 10000);
+        }
+
         private static async Task SetColor(LightBulb bulb, string eventID, ushort hue, ushort saturation, ushort brightness,
             ushort kelvin)
         {
-            Log.Bulb($"{eventID} SetColor {bulb.State.Label}");
+
+            var taskTimeOut = GetAppSetting("TaskTimeout", TaskTimeoutDefault);
+            var taskTimeOutInc = GetAppSetting("TaskTimeoutInc", TaskTimeoutIncDefault);
+            var commandSends = GetAppSetting("CommandSends", CommandSendsDef);
 
             //  bulb.State = await _client.GetLightStateAsync(bulb);
 
@@ -578,10 +591,21 @@ private void CreatePair(int dvRef, string command)
             if (kelvin > KelvinHigh)
                 kelvin = KelvinHigh;
 
-            for (var count = 0; count < CommandSends; ++count)
+            for (var count = 0; count < commandSends; ++count)
             {
-                await
-                    _client.SetColorAsync(bulb, hue, saturation, brightness, kelvin, new TimeSpan(0)).TimeoutAfter(TaskTimeout); 
+               
+
+               // var to = new TimeSpan(taskTimeOut + taskTimeOutInc * commandSends);
+                var rr = taskTimeOut + (taskTimeOutInc * count);
+                var to = GetTS(rr);
+
+                Log.Bulb($"{eventID} SetColor {bulb.State.Label} Try: {count}/{commandSends} TimeOut: {to}");
+
+                var res = await
+                    _client.SetColorAsync(bulb, hue, saturation, brightness, kelvin, new TimeSpan(0)).TimeoutAfter(to);
+                if (!res) continue;
+
+                count = commandSends + 10;
                 bulb.State.Hue = hue;
                 bulb.State.Saturation = saturation;
                 bulb.State.Brightness = brightness;
@@ -591,61 +615,114 @@ private void CreatePair(int dvRef, string command)
             Log.Bulb($"{eventID} SetColor {bulb.State.Label} Done");
         }
 
-        private static async Task SetColor(LightBulb bulb, ushort kelvin)
+        //private static async Task SetColor(LightBulb bulb, ushort kelvin)
+        //{
+        //    //bulb.State = await _client.GetLightStateAsync(bulb);
+
+        //    var hue = bulb.State.Hue;
+        //    var saturation = bulb.State.Saturation;
+        //    var brightness = bulb.State.Brightness;
+        //    var kelvin1 = bulb.State.Kelvin;
+
+        //    if (kelvin == kelvin1 && hue == 255 && saturation == 255)
+        //        return;
+
+        //    for (var count = 0; count < CommandSends; ++count)
+        //    {
+
+        //        var res=await
+        //            _client.SetColorAsync(bulb, 0, 0, brightness, kelvin,
+        //                new TimeSpan(0)).TimeoutAfter(TaskTimeout);
+        //        if (!res) continue;
+
+        //        count = CommandSends + 10;
+        //        bulb.State.Kelvin = kelvin;
+        //    }
+        //}
+
+        //private static async Task SetColor(LightBulb bulb, BIXColor bixColor)
+        //{
+        //    //   bulb.State = await _client.GetLightStateAsync(bulb);
+
+        //    var hue = bulb.State.Hue;
+        //    var saturation = bulb.State.Saturation;
+        //    var brightness = bulb.State.Brightness;
+        //    var kelvin = bulb.State.Kelvin;
+
+        //    if (hue == bixColor.LIFXHue && saturation == bixColor.LIFXSaturation)
+        //        return;
+
+        //    for (var count = 0; count < CommandSends; ++count)
+        //    {
+        //        var res= await
+        //            _client.SetColorAsync(bulb, bixColor.LIFXHue, bixColor.LIFXSaturation, brightness, kelvin,
+        //                new TimeSpan(0)).TimeoutAfter(TaskTimeout);
+
+        //        if (!res) continue;
+
+        //        count = CommandSends + 10;
+
+        //        bulb.State.Hue = bixColor.LIFXHue;
+        //        bulb.State.Saturation = bixColor.LIFXSaturation;
+        //    }
+        //}
+
+        //static void AddUpdateAppSettings(string key, string value)
+        //{
+        //    try
+        //    {
+        //        var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        //        var settings = configFile.AppSettings.Settings;
+        //        if (settings[key] == null)
+        //        {
+        //            settings.Add(key, value);
+        //        }
+        //        else
+        //        {
+        //            settings[key].Value = value;
+        //        }
+        //        configFile.Save(ConfigurationSaveMode.Modified);
+        //        ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+        //    }
+        //    catch (ConfigurationErrorsException)
+        //    {
+        //        Console.WriteLine("Error writing app settings");
+        //    }
+        //}
+
+        private static int GetAppSetting(string key, int defaultValue=0)
         {
-            //bulb.State = await _client.GetLightStateAsync(bulb);
+            var appSettings = ConfigurationManager.AppSettings;
+            var result = appSettings[key] ?? defaultValue.ToString();
 
-            var hue = bulb.State.Hue;
-            var saturation = bulb.State.Saturation;
-            var brightness = bulb.State.Brightness;
-            var kelvin1 = bulb.State.Kelvin;
+            int ret;
+            if (IsNullOrEmpty(result) || !int.TryParse(result, out ret))
+                return defaultValue;          
 
-            if (kelvin == kelvin1 && hue == 255 && saturation == 255)
-                return;
-
-            for (var count = 0; count < CommandSends; ++count)
-            {
-                await
-                    _client.SetColorAsync(bulb, 0, 0, brightness, kelvin,
-                        new TimeSpan(0)).TimeoutAfter(TaskTimeout);
-                bulb.State.Kelvin = kelvin;
-            }
-        }
-
-        private static async Task SetColor(LightBulb bulb, BIXColor bixColor)
-        {
-            //   bulb.State = await _client.GetLightStateAsync(bulb);
-
-            var hue = bulb.State.Hue;
-            var saturation = bulb.State.Saturation;
-            var brightness = bulb.State.Brightness;
-            var kelvin = bulb.State.Kelvin;
-
-            if (hue == bixColor.LIFXHue && saturation == bixColor.LIFXSaturation)
-                return;
-
-            for (var count = 0; count < CommandSends; ++count)
-            {
-                await
-                    _client.SetColorAsync(bulb, bixColor.LIFXHue, bixColor.LIFXSaturation, brightness, kelvin,
-                        new TimeSpan(0)).TimeoutAfter(TaskTimeout);
-                bulb.State.Hue = bixColor.LIFXHue;
-                bulb.State.Saturation = bixColor.LIFXSaturation;
-            }
+            return ret;
         }
 
         private static async Task<string> SetPower(LightBulb bulb,string eventid, string powerState)
         {
-            Log.Bulb($"{eventid} SetPower {bulb.State.Label} {powerState}");
+            var taskTimeOut = GetAppSetting("TaskTimeout", TaskTimeoutDefault);
+            var taskTimeOutInc = GetAppSetting("TaskTimeoutInc", TaskTimeoutIncDefault);
+            var commandSends = GetAppSetting("CommandSends", CommandSendsDef);
+
             //  bulb.State = await _client.GetLightStateAsync(bulb);
             if (powerState == "toggle")
-            {
+            {                
                 powerState = bulb.State.IsOn ? "off" : "on";
             }
 
-            for (var count = 0; count < CommandSends; ++count)
+            for (var count = 0; count < commandSends; ++count)
             {
-                await _client.SetDevicePowerStateAsync(bulb, powerState == "on").TimeoutAfter(TaskTimeout);                
+                var rr = taskTimeOut + (taskTimeOutInc * count);
+                var to = GetTS(rr);
+                Log.Bulb($"{eventid} SetPower {bulb.State.Label} {powerState} Try: {count}/{commandSends} TimeOut: {to}");
+                var res= await _client.SetDevicePowerStateAsync(bulb, powerState == "on").TimeoutAfter(to).ConfigureAwait(true);
+                if (!res) continue;
+
+                count = commandSends + 10;
             }
 
             Log.Bulb($"{eventid} SetPower {bulb.State.Label} {powerState} Done");
@@ -653,24 +730,31 @@ private void CreatePair(int dvRef, string command)
             return powerState;
         }
 
-        private static async Task<ushort> Dim(LightBulb bulb, ushort dim)
+        //private static async Task<ushort> Dim(LightBulb bulb, ushort dim)
+        //{
+        //    //   bulb.State = await _client.GetLightStateAsync(bulb);
+        //    var hue = bulb.State.Hue;
+        //    var saturation = bulb.State.Saturation;
+        //    var brightness = bulb.State.Brightness;
+        //    var kelvin = bulb.State.Kelvin;
+
+        //    if (brightness != dim)
+        //        for (var count = 0; count < CommandSends; ++count)
+        //        {
+        //            var res= await _client.SetColorAsync(bulb, hue, saturation, dim, kelvin, new TimeSpan(0)).TimeoutAfter(TaskTimeout);
+        //            if (!res) continue;
+
+        //            count = CommandSends + 10;
+        //        }
+
+        //    return brightness;
+        //}
+
+        private static void SendResponse(HttpListenerResponse response, string message,bool logMessage=true)
         {
-            //   bulb.State = await _client.GetLightStateAsync(bulb);
-            var hue = bulb.State.Hue;
-            var saturation = bulb.State.Saturation;
-            var brightness = bulb.State.Brightness;
-            var kelvin = bulb.State.Kelvin;
+            if ( logMessage)
+                Log.Bulb($"Responded with {message}");
 
-            if (brightness != dim)
-                for (var count = 0; count < CommandSends; ++count)
-                    await _client.SetColorAsync(bulb, hue, saturation, dim, kelvin, new TimeSpan(0)).TimeoutAfter(TaskTimeout);
-
-            return brightness;
-        }
-
-        private static void SendResponse(HttpListenerResponse response, string message)
-        {
-            Log.Bulb($"Responded with {message}");
             try
             {
                 var buffer = Encoding.UTF8.GetBytes(message);

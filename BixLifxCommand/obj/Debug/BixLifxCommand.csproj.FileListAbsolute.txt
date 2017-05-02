@@ -1,5 +1,0 @@
-C:\Users\dbakker\Source\Repos\BIXPlugins\BixLifxCommand\bin\Debug\BixLifxCommand.exe
-C:\Users\dbakker\Source\Repos\BIXPlugins\BixLifxCommand\bin\Debug\BixLifxCommand.pdb
-C:\Users\dbakker\Source\Repos\BIXPlugins\BixLifxCommand\obj\Debug\BixLifxCommand.csprojResolveAssemblyReference.cache
-C:\Users\dbakker\Source\Repos\BIXPlugins\BixLifxCommand\obj\Debug\BixLifxCommand.exe
-C:\Users\dbakker\Source\Repos\BIXPlugins\BixLifxCommand\obj\Debug\BixLifxCommand.pdb

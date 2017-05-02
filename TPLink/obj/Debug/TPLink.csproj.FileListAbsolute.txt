@@ -1,5 +1,0 @@
-C:\Users\dbakker\Source\Repos\BIXPlugins\TPLink\bin\Debug\TPLink.dll
-C:\Users\dbakker\Source\Repos\BIXPlugins\TPLink\bin\Debug\TPLink.pdb
-C:\Users\dbakker\Source\Repos\BIXPlugins\TPLink\obj\Debug\TPLink.csprojResolveAssemblyReference.cache
-C:\Users\dbakker\Source\Repos\BIXPlugins\TPLink\obj\Debug\TPLink.dll
-C:\Users\dbakker\Source\Repos\BIXPlugins\TPLink\obj\Debug\TPLink.pdb

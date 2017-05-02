@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace BixPlugins
@@ -10,20 +12,51 @@ namespace BixPlugins
         private static Log _outputSingleton;
         private readonly string _logDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
 
-        public const int MaxMessages = 100;
+        public const int MaxMessagesDef = 100;
+        public static int MaxMessages = MaxMessagesDef;
         public LinkedList<string> Messages { get; set; }
         public Log()
         {
-            Messages=new LinkedList<string>();
+            MaxMessages = GetAppSetting("MaxMessages", MaxMessagesDef);
+            Messages =new LinkedList<string>();
             EnsureLogDirectoryExists();
             InstantiateStreamWriter();
         }
 
+
+        private static int GetAppSetting(string key, int defaultValue = 0)
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+            var result = appSettings[key] ?? defaultValue.ToString();
+
+            int ret;
+            if (string.IsNullOrEmpty(result) || !int.TryParse(result, out ret))
+                return defaultValue;
+
+            return ret;
+        }
+
         public static string GetMessages()
         {
-            StringBuilder builder = new StringBuilder();
-            foreach (var message in OutputSingleton.Messages)
-                builder.AppendLine(message);
+            var builder = new StringBuilder();
+            var messages = OutputSingleton.Messages.ToList();
+
+            builder.AppendLine($"<font color=\"{GetColor("INFO")}\"> <strong>INFO: </strong></font> Max Messages is set to: {Log.MaxMessages}<br>");
+
+            foreach (var message in messages)
+            {
+                if (! message.Contains(":"))
+                    continue;
+
+                var level = message.Substring(0, message.IndexOf(":"));
+                if (!ValidMessages.Contains(level))
+                    continue;
+
+                var message1 = message.Remove(0, message.IndexOf(":"));
+                var ccolor = GetColor(level);
+
+                builder.AppendLine($"<font color=\"{ccolor}\"> <strong>{level}</strong></font> {message1}<br>");
+            }
 
             return builder.ToString();
         }
@@ -44,6 +77,7 @@ namespace BixPlugins
         {
             lock (OutputSingleton.Messages)
             {
+                MaxMessages =GetAppSetting("MaxMessages", MaxMessagesDef);
                 if (Messages.Count >= MaxMessages)
                 {
                     OutputSingleton.Messages.RemoveFirst();
@@ -73,20 +107,60 @@ namespace BixPlugins
             }
         }
 
-        private static void WriteColor(string level, string msg, ConsoleColor consoleColor = ConsoleColor.Green)
+        private static List<string> ValidMessages= new List<string> {"ERROR","DEBUG","BULB","INFO"};
+
+        private static ConsoleColor GetCColor(string level)
         {
             if (level == "ERROR")
             {
-                consoleColor = ConsoleColor.Red;
+                return ConsoleColor.Red;
             }
             else if (level == "DEBUG")
             {
-                consoleColor = ConsoleColor.Magenta;
+                return ConsoleColor.Magenta;
             }
             else if (level == "BULB")
             {
-                consoleColor = ConsoleColor.DarkYellow;
+                return ConsoleColor.DarkYellow;
             }
+            return ConsoleColor.Green;
+            
+        }
+
+        private static string GetColor(string level)
+        {
+            if (level == "ERROR")
+            {
+                return BIXColors.Colors["firebrick"].Hex;
+            }
+            else if (level == "DEBUG")
+            {
+                return BIXColors.Colors["deeppink"].Hex;
+            }
+            else if (level == "BULB")
+            {
+                return BIXColors.Colors["darkgoldenrod"].Hex;
+            }
+
+            return BIXColors.Colors["darkgreen"].Hex;
+
+        }
+
+        private static void WriteColor(string level, string msg, ConsoleColor consoleColor = ConsoleColor.Green)
+        {
+            //if (level == "ERROR")
+            //{
+            //    consoleColor = ConsoleColor.Red;
+            //}
+            //else if (level == "DEBUG")
+            //{
+            //    consoleColor = ConsoleColor.Magenta;
+            //}
+            //else if (level == "BULB")
+            //{
+            //    consoleColor = ConsoleColor.DarkYellow;
+            //}
+            consoleColor = GetCColor(level);
 
             if (WriteToConsole)
             {
