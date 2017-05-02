@@ -1,0 +1,5 @@
+BULB: 4/27/2017 4:15:22 PM Starting BixListens
+INFO: 4/27/2017 4:15:22 PM Listening..
+BULB: 4/27/2017 4:15:22 PM Creating LifxClient
+INFO: 4/27/2017 4:15:22 PM Listen Start WaitAny
+BULB: 4/27/2017 4:15:22 PM Start Device Discovery

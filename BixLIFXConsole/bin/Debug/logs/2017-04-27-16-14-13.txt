@@ -1,0 +1,4 @@
+BULB: 4/27/2017 4:14:13 PM Starting BixListens
+INFO: 4/27/2017 4:14:13 PM Listening..
+BULB: 4/27/2017 4:14:13 PM Creating LifxClient
+INFO: 4/27/2017 4:14:13 PM Listen Start WaitAny

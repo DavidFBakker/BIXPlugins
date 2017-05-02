@@ -1,0 +1,12 @@
+BULB: 4/28/2017 7:49:53 PM Starting BixListens
+INFO: 4/28/2017 7:49:53 PM Listening..
+BULB: 4/28/2017 7:49:53 PM Creating LifxClient
+INFO: 4/28/2017 7:49:53 PM Listen Start WaitAny
+BULB: 4/28/2017 7:49:54 PM Start Device Discovery
+BULB: 4/28/2017 7:50:02 PM Adding bulb Kitchen White 3
+BULB: 4/28/2017 7:50:02 PM Adding bulb Kitchen White 2
+BULB: 4/28/2017 7:50:02 PM Adding bulb Kitchen Cook 1
+BULB: 4/28/2017 7:50:02 PM Adding bulb Kitchen Cook 3
+BULB: 4/28/2017 7:50:02 PM Adding bulb Kitchen Strip 1
+BULB: 4/28/2017 7:50:02 PM Adding bulb Kitchen Pendant 1
+BULB: 4/28/2017 7:50:02 PM Adding bulb Kitchen White 1
